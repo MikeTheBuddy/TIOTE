@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="TeleportInformation" load_steps=3 format=3 uid="uid://6w0b12kvpbfx"]
+
+[ext_resource type="Script" path="res://teleport_information.gd" id="1_dy104"]
+[ext_resource type="Texture2D" uid="uid://savd0ljommo1" path="res://Resources/Props/wood_door.png" id="2_ogmls"]
+
+[resource]
+script = ExtResource("1_dy104")
+teleport_texture = ExtResource("2_ogmls")
+teleport_scene = "res://Dungeon.tscn"
+teleport_position = Vector2(0, 0)

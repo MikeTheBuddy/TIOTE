@@ -1,0 +1,91 @@
+[gd_scene load_steps=12 format=3 uid="uid://byu6kttoehlc4"]
+
+[ext_resource type="Texture2D" uid="uid://clwtomheoriwv" path="res://Resources/Props/Pot/pot_breaking.png" id="1_dk8gi"]
+[ext_resource type="Script" path="res://pot.gd" id="1_vf0x5"]
+[ext_resource type="Texture2D" uid="uid://cpqltsai1qwdx" path="res://Resources/Props/Pot/pot_normal.png" id="1_wwnng"]
+[ext_resource type="Texture2D" uid="uid://01doo6fo0pnx" path="res://Resources/Props/Pot/pot_broken.png" id="2_3k2bg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_obset"]
+size = Vector2(12, 3)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mmnju"]
+atlas = ExtResource("1_dk8gi")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_le3yh"]
+atlas = ExtResource("1_dk8gi")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s7cfk"]
+atlas = ExtResource("1_dk8gi")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r70er"]
+atlas = ExtResource("1_dk8gi")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_stvtu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mmnju")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_le3yh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s7cfk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r70er")
+}],
+"loop": false,
+"name": &"Breaking",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_3k2bg")
+}],
+"loop": false,
+"name": &"Broken",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_wwnng")
+}],
+"loop": false,
+"name": &"Unbroken",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8odjm"]
+size = Vector2(12, 11)
+
+[node name="Pot" type="CharacterBody2D"]
+z_index = 2
+y_sort_enabled = true
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("1_vf0x5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_obset")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_stvtu")
+animation = &"Unbroken"
+offset = Vector2(0, -8)
+
+[node name="BreakRange" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BreakRange"]
+position = Vector2(0, -6.5)
+shape = SubResource("RectangleShape2D_8odjm")
+debug_color = Color(0.894118, 0.278431, 0.407843, 0.419608)
+
+[connection signal="area_entered" from="BreakRange" to="." method="_on_break_range_area_entered"]
