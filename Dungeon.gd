@@ -124,6 +124,5 @@ func load_map():
 		var room = room_manager.instantiate()
 		room.name = "room_manager" + str(i)
 		room.position = Vector2(i.x * 384,i.y * 224)
-		
+		room.layout_info = load("res://Dungeon/test_layout.tres")
 		rooms.add_child(room)
-		

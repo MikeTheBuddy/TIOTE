@@ -75,9 +75,11 @@ position = Vector2(0, -1.5)
 shape = SubResource("RectangleShape2D_obset")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
+position = Vector2(0, -2)
 sprite_frames = SubResource("SpriteFrames_stvtu")
 animation = &"Unbroken"
-offset = Vector2(0, -8)
+offset = Vector2(0, -6)
 
 [node name="BreakRange" type="Area2D" parent="."]
 collision_layer = 0

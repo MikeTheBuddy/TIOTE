@@ -1148,3 +1148,4 @@ position = Vector2(80, -65)
 teleport_information = ExtResource("7_5rjq5")
 
 [node name="Rooms" type="Node2D" parent="."]
+y_sort_enabled = true

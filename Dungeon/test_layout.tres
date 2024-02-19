@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="RoomLayout" load_steps=2 format=3 uid="uid://dy2oxrywvw8kc"]
+
+[ext_resource type="Script" path="res://room_layout.gd" id="1_inlfb"]
+
+[resource]
+script = ExtResource("1_inlfb")
+pot_layout = PackedVector2Array(0, 0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 21, 0)
+enemy_slime_layout = PackedVector2Array()
