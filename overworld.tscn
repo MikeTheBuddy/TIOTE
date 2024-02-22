@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://dj2hlsqkgrmci" path="res://Resources/overworld_tileset.png" id="1_ypaot"]
 [ext_resource type="Texture2D" uid="uid://c40tytof7awx3" path="res://Resources/overworld_props_spritesheet.png" id="2_s662b"]
 [ext_resource type="PackedScene" uid="uid://d3ow1kb87tseu" path="res://player.tscn" id="3_hpdtb"]
-[ext_resource type="Resource" uid="uid://dbkv1p5fjv1oh" path="res://player_info.tres" id="4_twuke"]
+[ext_resource type="Resource" uid="uid://dqomh1wb74dwd" path="res://player_info.tres" id="4_twuke"]
 [ext_resource type="PackedScene" uid="uid://c331qqkmmnew0" path="res://teleport.tscn" id="5_43k7d"]
 [ext_resource type="Resource" uid="uid://6w0b12kvpbfx" path="res://Resources/DoorTeleports/test_portal_2.tres" id="6_o6da2"]
 

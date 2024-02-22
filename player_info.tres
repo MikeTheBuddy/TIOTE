@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="PlayerInformation" load_steps=2 format=3 uid="uid://dbkv1p5fjv1oh"]
+[gd_resource type="Resource" script_class="PlayerInformation" load_steps=2 format=3 uid="uid://dqomh1wb74dwd"]
 
 [ext_resource type="Script" path="res://player_info.gd" id="1_5x7v2"]
 

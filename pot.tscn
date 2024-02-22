@@ -41,7 +41,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"Breaking",
-"speed": 8.0
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -78,7 +78,9 @@ shape = SubResource("RectangleShape2D_obset")
 y_sort_enabled = true
 position = Vector2(0, -2)
 sprite_frames = SubResource("SpriteFrames_stvtu")
-animation = &"Unbroken"
+animation = &"Breaking"
+frame = 3
+frame_progress = 1.0
 offset = Vector2(0, -6)
 
 [node name="BreakRange" type="Area2D" parent="."]

@@ -119,10 +119,12 @@ func load_map():
 	
 	tile_map.set_cells_terrain_connect(dungeon_wall_layer,dungeon_door_wall_tiles_arr,dungeon_terrain_set_id,dungeon_wall_int)
 	
+	
 	# here we are going to handle establishing each room
 	for i in dungeon.keys():
 		var room = room_manager.instantiate()
 		room.name = "room_manager" + str(i)
 		room.position = Vector2(i.x * 384,i.y * 224)
-		room.layout_info = load("res://Dungeon/test_layout.tres")
+		var random_layout = randi_range(1,2)
+		room.layout_info = load("res://Dungeon/dungeon_layout_basic_" + str(random_layout) + ".tres")
 		rooms.add_child(room)

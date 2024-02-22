@@ -8,4 +8,4 @@ class_name RoomLayout
 
 func _init(p_pot_layout = [], p_enemy_slime_layout = []):
 	pot_layout = p_pot_layout
-	enemy_slime_layout = p_pot_layout
+	enemy_slime_layout = p_enemy_slime_layout

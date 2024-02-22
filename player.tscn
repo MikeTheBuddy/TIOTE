@@ -344,7 +344,7 @@ shape = SubResource("RectangleShape2D_b7da4")
 y_sort_enabled = true
 position = Vector2(0, -1)
 sprite_frames = SubResource("SpriteFrames_f07l1")
-animation = &"Idle_Forward"
+animation = &"Idle_Down"
 offset = Vector2(0, -16)
 
 [node name="AttackCooldown" type="Timer" parent="."]

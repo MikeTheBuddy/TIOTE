@@ -21,5 +21,9 @@ y_sort_enabled = true
 [node name="Monsters" type="Node2D" parent="."]
 y_sort_enabled = true
 
+[node name="DeloadTime" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

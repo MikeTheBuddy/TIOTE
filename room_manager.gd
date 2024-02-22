@@ -5,6 +5,7 @@ const POT = preload("res://pot.tscn")
 @export var layout_info: Resource
 
 @onready var interactables = $Interactables
+@onready var deload_time = $DeloadTime
 
 var active_pots = []
 
@@ -14,8 +15,8 @@ func _ready():
 	
 
 func _on_body_entered(_body):
-	print("Room " + str(position) + " Was Entered")
-	print(active_pots)
+	#print("Room " + str(position) + " Was Entered")
+	#print(active_pots)
 	var counter = 0
 	for i in layout_info.pot_layout:
 		var pot = POT.instantiate()
@@ -26,8 +27,11 @@ func _on_body_entered(_body):
 
 
 func _on_body_exited(_body):
-	for i in range(0,interactables.get_child_count()):
-		active_pots[i] = interactables.get_child(i).broken
-		interactables.get_child(i).queue_free()
-	
-	print("Room " + str(position) + " Was Exited")
+	if deload_time.is_inside_tree():
+		deload_time.start()
+		await deload_time.timeout
+		for i in range(0,interactables.get_child_count()):
+			active_pots[i] = interactables.get_child(i).broken
+			interactables.get_child(i).queue_free()
+
+	#print("Room " + str(position) + " Was Exited")

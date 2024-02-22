@@ -15,7 +15,7 @@ const player_info_path = "res://player_info.tres"
 var entered = false
 
 func _ready():
-	sprite_2d.texture = teleport_information.teleport_texture
+	sprite_2d.texture = teleport_information.teleport_texture_away
 	
 func _process(_delta):
 	if Input.is_action_just_pressed("Interact") and entered == true:
@@ -29,10 +29,11 @@ func _process(_delta):
 
 
 func _on_area_entered(_area):
+	sprite_2d.texture = teleport_information.teleport_texture_close
 	entered = true
-	#print("TEST")
 
 
 
 func _on_area_exited(_area):
+	sprite_2d.texture = teleport_information.teleport_texture_away
 	entered = false

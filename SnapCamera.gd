@@ -27,5 +27,12 @@ func _process(_delta):
 	if camera_room_position != player_room_pos:
 		camera_room_position = player_room_pos
 	
+	var previous_position = position
+	
 	position.x = move_toward(position.x, camera_room_position.x*ROOM_WIDTH, CAMSPEED)
 	position.y = move_toward(position.y, camera_room_position.y*ROOM_HEIGHT, CAMSPEED)
+
+	if previous_position == position:
+		player.lockout = false
+	else:
+		player.lockout = true
