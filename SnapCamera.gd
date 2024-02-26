@@ -2,6 +2,7 @@ extends Camera2D
 
 var camera_room_position = Vector2(0,0)
 @onready var player = $"../Player"
+@onready var transition_time = $TransitionTime
 
 const CAMSPEED = 10
 
@@ -29,10 +30,16 @@ func _process(_delta):
 	
 	var previous_position = position
 	
-	position.x = move_toward(position.x, camera_room_position.x*ROOM_WIDTH, CAMSPEED)
-	position.y = move_toward(position.y, camera_room_position.y*ROOM_HEIGHT, CAMSPEED)
+	#position.x = move_toward(position.x, camera_room_position.x*ROOM_WIDTH, CAMSPEED)
+	#position.y = move_toward(position.y, camera_room_position.y*ROOM_HEIGHT, CAMSPEED)
 
-	if previous_position == position:
+	position.x = camera_room_position.x*ROOM_WIDTH
+	position.y = camera_room_position.y*ROOM_HEIGHT
+
+	if previous_position != position:
+		transition_time.start()
+		
+	if transition_time.is_stopped():
 		player.lockout = false
 	else:
 		player.lockout = true

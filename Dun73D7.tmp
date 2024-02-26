@@ -1,12 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://cc7u31ivs2soj"]
+[gd_scene load_steps=13 format=3 uid="uid://cc7u31ivs2soj"]
 
 [ext_resource type="Script" path="res://Dungeon.gd" id="1_jphk1"]
 [ext_resource type="Texture2D" uid="uid://bw8cm121ehkyd" path="res://Resources/tilemap1.png" id="2_0sr4w"]
 [ext_resource type="PackedScene" uid="uid://d3ow1kb87tseu" path="res://player.tscn" id="3_2m3cp"]
 [ext_resource type="Script" path="res://SnapCamera.gd" id="4_a3wpt"]
 [ext_resource type="Resource" uid="uid://dqomh1wb74dwd" path="res://player_info.tres" id="4_f7eo8"]
+[ext_resource type="Texture2D" uid="uid://easyj3b2vwye" path="res://Resources/Player/wallet.png" id="5_c7k4i"]
+[ext_resource type="PackedScene" uid="uid://dqc6ctauqb6bo" path="res://slime.tscn" id="5_cenl0"]
 [ext_resource type="PackedScene" uid="uid://c331qqkmmnew0" path="res://teleport.tscn" id="6_2haaf"]
-[ext_resource type="PackedScene" uid="uid://bdddl6vmb4qnc" path="res://gui.tscn" id="6_p6mp7"]
+[ext_resource type="Script" path="res://GUI.gd" id="6_t8jgb"]
 [ext_resource type="Resource" uid="uid://cfnqa3rtd0uht" path="res://Resources/DoorTeleports/test_portal.tres" id="7_5rjq5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_s6bb1"]
@@ -1140,15 +1142,30 @@ position_smoothing_enabled = true
 position_smoothing_speed = 6.0
 script = ExtResource("4_a3wpt")
 
-[node name="GUI" parent="CameraSnap" instance=ExtResource("6_p6mp7")]
-offset_left = -192.0
-offset_top = -112.0
-offset_right = 192.0
-offset_bottom = 112.0
-
 [node name="TransitionTime" type="Timer" parent="CameraSnap"]
 wait_time = 0.4
 one_shot = true
+
+[node name="GUI" type="Control" parent="CameraSnap"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 193.0
+offset_bottom = 97.0
+script = ExtResource("6_t8jgb")
+
+[node name="Wallet" type="TextureRect" parent="CameraSnap/GUI"]
+layout_mode = 2
+offset_left = 160.0
+offset_top = 79.0
+offset_right = 192.0
+offset_bottom = 111.0
+texture = ExtResource("5_c7k4i")
+
+[node name="WalletTimer" type="Timer" parent="CameraSnap/GUI/Wallet"]
+one_shot = true
+
+[node name="Slime" parent="." instance=ExtResource("5_cenl0")]
+position = Vector2(-59, -34)
 
 [node name="Doors" type="Node2D" parent="."]
 y_sort_enabled = true

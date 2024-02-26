@@ -50,6 +50,7 @@ Interact={
 2d_physics/layer_5="Prop"
 2d_physics/layer_6="Player Attack"
 2d_physics/layer_7="Player Interact"
+2d_physics/layer_8="Pickup"
 
 [rendering]
 

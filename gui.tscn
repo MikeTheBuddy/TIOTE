@@ -1,0 +1,78 @@
+[gd_scene load_steps=3 format=3 uid="uid://bdddl6vmb4qnc"]
+
+[ext_resource type="Texture2D" uid="uid://easyj3b2vwye" path="res://Resources/Player/wallet.png" id="1_i5ki3"]
+
+[sub_resource type="GDScript" id="GDScript_7wqjx"]
+script/source = "extends Control
+
+@onready var wallet_timer = $Wallet/WalletTimer
+@onready var wallet = $Wallet
+
+const WALLETSPEED = 10
+
+signal picked_up_coin
+
+@onready var location_timer = $Location/LocationTimer
+@onready var location = $Location
+
+
+func _ready():
+	location.text = str(get_tree().current_scene.name)
+
+func _process(_delta):
+	if wallet_timer.is_stopped() == false:
+		wallet.position.y = move_toward(wallet.position.y, 192, 3)
+	else:
+		wallet.position.y = move_toward(wallet.position.y, 220, 3)
+		
+	if location_timer.is_stopped() == false:
+		location.position.y = move_toward(location.position.y, 0, 3)
+	else:
+		location.position.y = move_toward(location.position.y, -25, 3)
+
+
+func _on_picked_up_coin():
+	wallet_timer.start()
+"
+
+[node name="GUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -768.0
+offset_bottom = -448.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_7wqjx")
+
+[node name="Wallet" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -4.0
+offset_bottom = 28.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("1_i5ki3")
+
+[node name="WalletTimer" type="Timer" parent="Wallet"]
+one_shot = true
+
+[node name="Location" type="Label" parent="."]
+layout_mode = 0
+offset_top = -25.0
+offset_right = 42.0
+offset_bottom = -2.0
+text = "NULL"
+
+[node name="LocationTimer" type="Timer" parent="Location"]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[connection signal="picked_up_coin" from="." to="." method="_on_picked_up_coin"]

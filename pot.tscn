@@ -5,39 +5,36 @@
 [ext_resource type="Texture2D" uid="uid://cpqltsai1qwdx" path="res://Resources/Props/Pot/pot_normal.png" id="1_wwnng"]
 [ext_resource type="Texture2D" uid="uid://01doo6fo0pnx" path="res://Resources/Props/Pot/pot_broken.png" id="2_3k2bg"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_obset"]
-size = Vector2(12, 3)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mmnju"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ai1yu"]
 atlas = ExtResource("1_dk8gi")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_le3yh"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_qw8sp"]
 atlas = ExtResource("1_dk8gi")
 region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_s7cfk"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_mtcqe"]
 atlas = ExtResource("1_dk8gi")
 region = Rect2(32, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_r70er"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ynedn"]
 atlas = ExtResource("1_dk8gi")
 region = Rect2(48, 0, 16, 16)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_stvtu"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_xyxr3"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_mmnju")
+"texture": SubResource("AtlasTexture_ai1yu")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_le3yh")
+"texture": SubResource("AtlasTexture_qw8sp")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_s7cfk")
+"texture": SubResource("AtlasTexture_mtcqe")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_r70er")
+"texture": SubResource("AtlasTexture_ynedn")
 }],
 "loop": false,
 "name": &"Breaking",
@@ -60,6 +57,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_obset"]
+size = Vector2(12, 3)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8odjm"]
 size = Vector2(12, 11)
 
@@ -70,18 +70,14 @@ collision_layer = 16
 collision_mask = 0
 script = ExtResource("1_vf0x5")
 
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_xyxr3")
+animation = &"Broken"
+offset = Vector2(0, -8)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1.5)
 shape = SubResource("RectangleShape2D_obset")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-y_sort_enabled = true
-position = Vector2(0, -2)
-sprite_frames = SubResource("SpriteFrames_stvtu")
-animation = &"Breaking"
-frame = 3
-frame_progress = 1.0
-offset = Vector2(0, -6)
 
 [node name="BreakRange" type="Area2D" parent="."]
 collision_layer = 0
@@ -91,5 +87,7 @@ collision_mask = 32
 position = Vector2(0, -6.5)
 shape = SubResource("RectangleShape2D_8odjm")
 debug_color = Color(0.894118, 0.278431, 0.407843, 0.419608)
+
+[node name="Drops" type="Node2D" parent="."]
 
 [connection signal="area_entered" from="BreakRange" to="." method="_on_break_range_area_entered"]

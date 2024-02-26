@@ -6,3 +6,4 @@ class_name PlayerInformation
 @export var position : Vector2
 @export var max_health : int
 @export var current_health : int
+@export var money: int

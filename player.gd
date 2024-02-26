@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+# DEBUG REMOVE LATER
+@onready var label = $Label
 
 const SPEED = 80.0
 
@@ -13,11 +15,16 @@ var last_direction = Vector2i()
 
 @export var player_info: Resource
 
+const player_info_path = "res://player_info.tres"
+
 var lockout = false # currently only used for room transitions to prevent the player from causing issues with the loading
+
+var money = 0
 
 func _ready():
 	position = player_info.position
 	animated_sprite_2d.play("Idle_Down")
+	money = player_info.money
 	
 # updates the animation to the correct one based on some stuff
 func update_animation():
@@ -54,6 +61,11 @@ func _process(_delta):
 	#if not is_on_floor():
 	#		velocity.y += gravity * delta
 	#print(lockout)
+	# update money total
+	player_info.money = money
+	
+	label.text = "Money: " + str(player_info.money)
+	
 	if lockout == false:
 		var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 		
@@ -79,6 +91,5 @@ func _process(_delta):
 			collision_shape_2d.disabled = true
 			update_animation()
 			velocity = direction * SPEED
-	
 
 	move_and_slide()
