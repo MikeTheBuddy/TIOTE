@@ -43,17 +43,23 @@ var horizontal_door_height = 2
 
 @onready var tile_map = $TileMap
 @onready var map_node = $Player/MapNode
+@onready var dungeon_rooms = $Rooms
 
+
+var level = 1
+
+signal generate_dungeon
 
 func _ready():
-	var rand_num = randi_range(0,2000)
-	dungeon = DungeonGeneration.generate(rand_num)
-	load_map()
+	generate_dungeon.emit()
 
 func load_map():
 	for i in range(0, map_node.get_child_count()):
 		map_node.get_child(i).queue_free()
-		
+	
+	for i in range(0,dungeon_rooms.get_child_count()):
+		dungeon_rooms.get_child(i).queue_free()
+	
 	for i in dungeon.keys():
 		var temp = Sprite2D.new()
 		temp.texture = node_sprite
@@ -128,3 +134,10 @@ func load_map():
 		var random_layout = randi_range(1,2)
 		room.layout_info = load("res://Dungeon/dungeon_layout_basic_" + str(random_layout) + ".tres")
 		rooms.add_child(room)
+
+
+func _on_generate_dungeon():
+	var rand_num = randi_range(0,2000)
+	dungeon = DungeonGeneration.generate(rand_num)
+	load_map()
+	get_node("GUILayer/GUI").update_location.emit()

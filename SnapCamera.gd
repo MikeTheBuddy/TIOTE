@@ -1,7 +1,8 @@
 extends Camera2D
 
 var camera_room_position = Vector2(0,0)
-@onready var player = $"../Player"
+#@onready var player = $"../Player"
+@onready var player = $"/root/Dungeon/Player"
 @onready var transition_time = $TransitionTime
 
 const CAMSPEED = 10

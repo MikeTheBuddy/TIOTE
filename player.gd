@@ -21,10 +21,15 @@ var lockout = false # currently only used for room transitions to prevent the pl
 
 var money = 0
 
+var max_health = 0
+var current_health = 0
+
 func _ready():
 	position = player_info.position
 	animated_sprite_2d.play("Idle_Down")
 	money = player_info.money
+	max_health = player_info.max_health
+	current_health = player_info.current_health
 	
 # updates the animation to the correct one based on some stuff
 func update_animation():
@@ -91,5 +96,10 @@ func _process(_delta):
 			collision_shape_2d.disabled = true
 			update_animation()
 			velocity = direction * SPEED
+
+	#THIS IS PURELY FOR DEBUGGING DUNGEONS
+	if Input.is_action_just_pressed("DebugButton"):
+		get_node("/root/Dungeon/").level += 1
+		get_node("/root/Dungeon/").generate_dungeon.emit()
 
 	move_and_slide()

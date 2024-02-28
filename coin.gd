@@ -58,8 +58,10 @@ func _process(delta):
 		global_position.x = move_toward(global_position.x, target_position.x, speed_x)
 		global_position.y = move_toward(global_position.y, target_position.y, speed_y)
 		
-		if round(global_position) == target_position:
+		if round(global_position) >= target_position - Vector2(3,3):
+			get_node("/root/Dungeon/GUILayer/GUI").shake_wallet.emit()
 			queue_free()
+			
 
 
 func _on_body_entered(_body):
@@ -70,5 +72,4 @@ func _on_body_entered(_body):
 	collected = true
 	#collision_shape_2d.set_deferred("disabled",true)
 	z_index = 200
-	
-	get_node("/root/Dungeon/CameraSnap/GUI").picked_up_coin.emit()
+	get_node("/root/Dungeon/GUILayer/GUI").picked_up_coin.emit()

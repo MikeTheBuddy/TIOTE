@@ -1,39 +1,28 @@
-[gd_scene load_steps=3 format=3 uid="uid://bdddl6vmb4qnc"]
+[gd_scene load_steps=5 format=3 uid="uid://bdddl6vmb4qnc"]
 
 [ext_resource type="Texture2D" uid="uid://easyj3b2vwye" path="res://Resources/Player/wallet.png" id="1_i5ki3"]
+[ext_resource type="Script" path="res://gui.gd" id="1_xc68u"]
 
-[sub_resource type="GDScript" id="GDScript_7wqjx"]
-script/source = "extends Control
+[sub_resource type="Animation" id="Animation_fafup"]
+resource_name = "Wallet_Shake"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(352, 192), Vector2(356, 192), Vector2(352, 192), Vector2(348, 192)]
+}
 
-@onready var wallet_timer = $Wallet/WalletTimer
-@onready var wallet = $Wallet
-
-const WALLETSPEED = 10
-
-signal picked_up_coin
-
-@onready var location_timer = $Location/LocationTimer
-@onready var location = $Location
-
-
-func _ready():
-	location.text = str(get_tree().current_scene.name)
-
-func _process(_delta):
-	if wallet_timer.is_stopped() == false:
-		wallet.position.y = move_toward(wallet.position.y, 192, 3)
-	else:
-		wallet.position.y = move_toward(wallet.position.y, 220, 3)
-		
-	if location_timer.is_stopped() == false:
-		location.position.y = move_toward(location.position.y, 0, 3)
-	else:
-		location.position.y = move_toward(location.position.y, -25, 3)
-
-
-func _on_picked_up_coin():
-	wallet_timer.start()
-"
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qrbdb"]
+_data = {
+"Wallet_Shake": SubResource("Animation_fafup")
+}
 
 [node name="GUI" type="Control"]
 layout_mode = 3
@@ -44,7 +33,7 @@ offset_right = -768.0
 offset_bottom = -448.0
 grow_horizontal = 2
 grow_vertical = 2
-script = SubResource("GDScript_7wqjx")
+script = ExtResource("1_xc68u")
 
 [node name="Wallet" type="TextureRect" parent="."]
 layout_mode = 1
@@ -63,6 +52,11 @@ texture = ExtResource("1_i5ki3")
 [node name="WalletTimer" type="Timer" parent="Wallet"]
 one_shot = true
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Wallet"]
+libraries = {
+"": SubResource("AnimationLibrary_qrbdb")
+}
+
 [node name="Location" type="Label" parent="."]
 layout_mode = 0
 offset_top = -25.0
@@ -75,4 +69,17 @@ wait_time = 2.0
 one_shot = true
 autostart = true
 
+[node name="HealthBar" type="ProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -27.0
+offset_right = 124.0
+grow_vertical = 0
+value = 20.0
+show_percentage = false
+
 [connection signal="picked_up_coin" from="." to="." method="_on_picked_up_coin"]
+[connection signal="shake_wallet" from="." to="." method="_on_shake_wallet"]
+[connection signal="update_location" from="." to="." method="_on_update_location"]
