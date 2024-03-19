@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MonsterStats" load_steps=3 format=3 uid="uid://bhvcusiedxfw4"]
+
+[ext_resource type="Script" path="res://monster_stats.gd" id="1_tcerv"]
+[ext_resource type="Texture2D" uid="uid://bu6pa8ahbi24j" path="res://Resources/BattleIcons/slime_battle_TEMP.png" id="2_wyw40"]
+
+[resource]
+script = ExtResource("1_tcerv")
+health = 10
+defense = 0
+attack = 10
+sprite = ExtResource("2_wyw40")

@@ -9,6 +9,8 @@ var branch_sprite = load("res://Resources/Debug/map_nodes3.png")
 
 var room_manager = load("res://room_manager.tscn")
 
+var battle_scene = load("res://battle_scene.tscn")
+
 var dungeon_floor_tiles_arr = []
 var dungeon_floor_int = 0
 var dungeon_floor_layer = 1
@@ -49,6 +51,7 @@ var horizontal_door_height = 2
 var level = 1
 
 signal generate_dungeon
+signal engage_battle(monster_1,monster_2,monster_3)
 
 func _ready():
 	generate_dungeon.emit()
@@ -141,3 +144,17 @@ func _on_generate_dungeon():
 	dungeon = DungeonGeneration.generate(rand_num)
 	load_map()
 	get_node("GUILayer/GUI").update_location.emit()
+
+
+
+func _on_engage_battle(monster_1, monster_2, monster_3, first_strike):
+	if Gamestates.in_battle == false:
+		Gamestates.in_battle = true
+		var battle = battle_scene.instantiate()
+		battle.first_strike = first_strike
+		battle.monster_1 = monster_1
+		battle.monster_2 = monster_2
+		battle.monster_3 = monster_3
+		battle.change_health.connect(get_node("GUILayer/GUI").change_health)
+		get_node("GUILayer/GUI").health_updated.connect(battle.gui_health_update)
+		$GUILayer.add_child(battle)

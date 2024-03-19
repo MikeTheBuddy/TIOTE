@@ -1,11 +1,22 @@
-[gd_scene load_steps=10 format=3 uid="uid://bcv3tv1xslsow"]
+[gd_scene load_steps=15 format=3 uid="uid://bcv3tv1xslsow"]
 
+[ext_resource type="Script" path="res://overworld.gd" id="1_dkl0x"]
 [ext_resource type="Texture2D" uid="uid://dj2hlsqkgrmci" path="res://Resources/overworld_tileset.png" id="1_ypaot"]
 [ext_resource type="Texture2D" uid="uid://c40tytof7awx3" path="res://Resources/overworld_props_spritesheet.png" id="2_s662b"]
 [ext_resource type="PackedScene" uid="uid://d3ow1kb87tseu" path="res://player.tscn" id="3_hpdtb"]
-[ext_resource type="Resource" uid="uid://dqomh1wb74dwd" path="res://player_info.tres" id="4_twuke"]
+[ext_resource type="Resource" uid="uid://defhgda6tnv8i" path="res://player_info.tres" id="4_twuke"]
 [ext_resource type="PackedScene" uid="uid://c331qqkmmnew0" path="res://teleport.tscn" id="5_43k7d"]
 [ext_resource type="Resource" uid="uid://6w0b12kvpbfx" path="res://Resources/DoorTeleports/test_portal_2.tres" id="6_o6da2"]
+[ext_resource type="PackedScene" uid="uid://bdddl6vmb4qnc" path="res://gui.tscn" id="7_4b6dv"]
+[ext_resource type="PackedScene" uid="uid://b33osamp81clc" path="res://npc.tscn" id="9_4ira2"]
+
+[sub_resource type="Gradient" id="Gradient_4schl"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.277419, 1)
+colors = PackedColorArray(0.0310336, 0.163447, 0.391215, 1, 0.415382, 0.478521, 0.590768, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_75731"]
+gradient = SubResource("Gradient_4schl")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w24rq"]
 texture = ExtResource("1_ypaot")
@@ -1019,6 +1030,8 @@ sources/1 = SubResource("TileSetAtlasSource_u5cx7")
 [node name="Overworld" type="Node2D"]
 y_sort_enabled = true
 position = Vector2(0, 3)
+script = ExtResource("1_dkl0x")
+gradient = SubResource("GradientTexture1D_75731")
 
 [node name="Doors" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -1048,3 +1061,17 @@ player_info = ExtResource("4_twuke")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(3, 3)
+
+[node name="GUILayer" type="CanvasLayer" parent="."]
+
+[node name="GUI" parent="GUILayer" instance=ExtResource("7_4b6dv")]
+scale = Vector2(3, 3)
+
+[node name="DayCycle" type="CanvasModulate" parent="."]
+
+[node name="NPCS" type="Node2D" parent="."]
+z_index = 2
+y_sort_enabled = true
+
+[node name="NPC" parent="NPCS" instance=ExtResource("9_4ira2")]
+position = Vector2(384, 160)

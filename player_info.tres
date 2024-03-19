@@ -1,10 +1,13 @@
-[gd_resource type="Resource" script_class="PlayerInformation" load_steps=2 format=3 uid="uid://dqomh1wb74dwd"]
+[gd_resource type="Resource" script_class="PlayerInformation" load_steps=2 format=3 uid="uid://defhgda6tnv8i"]
 
 [ext_resource type="Script" path="res://player_info.gd" id="1_5x7v2"]
 
 [resource]
 script = ExtResource("1_5x7v2")
 position = Vector2(300, 100)
-max_health = 10
-current_health = 5
-money = 877
+max_health = 50
+current_health = 45
+money = 248
+experience = 0
+attack = 3
+defense = 0

@@ -10,6 +10,8 @@ const CAMSPEED = 10
 const ROOM_WIDTH = 384.0
 const ROOM_HEIGHT = 224.0
 
+var direction: Vector2
+
 func _process(_delta):
 	var player_x_room = 0
 	var player_y_room = 0
@@ -38,9 +40,19 @@ func _process(_delta):
 	position.y = camera_room_position.y*ROOM_HEIGHT
 
 	if previous_position != position:
-		transition_time.start()
+		var direction_x = clampi(previous_position.x - position.x,-1,1)
+		var direction_y = clampi(previous_position.y - position.y,-1,1)
 		
-	if transition_time.is_stopped():
-		player.lockout = false
-	else:
+		direction = Vector2(direction_x,direction_y)
+		transition_time.start()
 		player.lockout = true
+		
+	if transition_time.is_stopped() == false:
+		pass
+		#player.velocity = -direction*60
+
+		
+
+
+func _on_transition_time_timeout():
+	player.lockout = false

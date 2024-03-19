@@ -1,0 +1,60 @@
+[gd_scene load_steps=8 format=3 uid="uid://bqm1regpvq68g"]
+
+[ext_resource type="Script" path="res://battle_monster.gd" id="1_5c6ka"]
+[ext_resource type="Texture2D" uid="uid://bu6pa8ahbi24j" path="res://Resources/BattleIcons/slime_battle_TEMP.png" id="2_6se8f"]
+[ext_resource type="Texture2D" uid="uid://u2hrn44kkgp6" path="res://Resources/BattleIcons/target.png" id="3_x42t7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eev02"]
+bg_color = Color(0.678431, 0.580392, 0.509804, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_73fnn"]
+bg_color = Color(0.266667, 0.545098, 0.796078, 1)
+
+[sub_resource type="Animation" id="Animation_e0nx7"]
+resource_name = "target_bob"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Targeted:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(75, -75), Vector2(100, -100), Vector2(75, -75)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bufuv"]
+_data = {
+"target_bob": SubResource("Animation_e0nx7")
+}
+
+[node name="battle_monster" type="Node2D"]
+script = ExtResource("1_5c6ka")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_6se8f")
+flip_h = true
+
+[node name="Health" type="ProgressBar" parent="Sprite2D"]
+offset_left = -21.0
+offset_top = 16.0
+offset_right = 20.0
+offset_bottom = 25.0
+theme_override_styles/background = SubResource("StyleBoxFlat_eev02")
+theme_override_styles/fill = SubResource("StyleBoxFlat_73fnn")
+value = 30.0
+show_percentage = false
+
+[node name="Targeted" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(80.8963, -80.8963)
+texture = ExtResource("3_x42t7")
+offset = Vector2(-60, 60)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_bufuv")
+}

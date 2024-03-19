@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bw8cm121ehkyd" path="res://Resources/tilemap1.png" id="2_0sr4w"]
 [ext_resource type="PackedScene" uid="uid://d3ow1kb87tseu" path="res://player.tscn" id="3_2m3cp"]
 [ext_resource type="Script" path="res://SnapCamera.gd" id="4_a3wpt"]
-[ext_resource type="Resource" uid="uid://dqomh1wb74dwd" path="res://player_info.tres" id="4_f7eo8"]
+[ext_resource type="Resource" uid="uid://defhgda6tnv8i" path="res://player_info.tres" id="4_f7eo8"]
 [ext_resource type="PackedScene" uid="uid://c331qqkmmnew0" path="res://teleport.tscn" id="6_2haaf"]
 [ext_resource type="PackedScene" uid="uid://bdddl6vmb4qnc" path="res://gui.tscn" id="6_p6mp7"]
 [ext_resource type="Resource" uid="uid://cfnqa3rtd0uht" path="res://Resources/DoorTeleports/test_portal.tres" id="7_5rjq5"]
@@ -1115,10 +1115,7 @@ metadata/_edit_vertical_guides_ = [-5.0]
 [node name="GUILayer" type="CanvasLayer" parent="."]
 
 [node name="GUI" parent="GUILayer" instance=ExtResource("6_p6mp7")]
-offset_left = 1.0
-offset_top = 1.0
-offset_right = -767.0
-offset_bottom = -447.0
+z_index = 1
 scale = Vector2(3, 3)
 
 [node name="CameraSnap" type="Camera2D" parent="."]
@@ -1129,8 +1126,9 @@ position_smoothing_speed = 6.0
 script = ExtResource("4_a3wpt")
 
 [node name="TransitionTime" type="Timer" parent="CameraSnap"]
-wait_time = 0.4
+wait_time = 0.6
 one_shot = true
+autostart = true
 
 [node name="TileMap" type="TileMap" parent="."]
 y_sort_enabled = true
@@ -1163,4 +1161,6 @@ teleport_information = ExtResource("7_5rjq5")
 [node name="Rooms" type="Node2D" parent="."]
 y_sort_enabled = true
 
+[connection signal="engage_battle" from="." to="." method="_on_engage_battle"]
 [connection signal="generate_dungeon" from="." to="." method="_on_generate_dungeon"]
+[connection signal="timeout" from="CameraSnap/TransitionTime" to="CameraSnap" method="_on_transition_time_timeout"]

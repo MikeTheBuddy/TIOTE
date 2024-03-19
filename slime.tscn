@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dqc6ctauqb6bo"]
+[gd_scene load_steps=19 format=3 uid="uid://dqc6ctauqb6bo"]
 
 [ext_resource type="Script" path="res://slime.gd" id="1_4u1vd"]
 [ext_resource type="Texture2D" uid="uid://bro5onfqias0i" path="res://Resources/Monsters/slime.png" id="1_k13bn"]
@@ -100,6 +100,10 @@ animations = [{
 radius = 57.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8o4rw"]
+radius = 7.07107
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3fbey"]
+radius = 63.2851
 
 [node name="Slime" type="CharacterBody2D"]
 z_index = 2
@@ -108,16 +112,16 @@ collision_layer = 8
 collision_mask = 20
 script = ExtResource("1_4u1vd")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionBox" type="CollisionShape2D" parent="."]
 position = Vector2(0, -3)
 shape = SubResource("RectangleShape2D_xsrnx")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true
-position = Vector2(0, -9)
 sprite_frames = SubResource("SpriteFrames_s6tlt")
 animation = &"Idle"
 frame_progress = 0.251744
+offset = Vector2(0, -8)
 
 [node name="ChaseRadius" type="Area2D" parent="."]
 collision_layer = 0
@@ -130,13 +134,22 @@ debug_color = Color(0.866667, 0.32549, 0.360784, 0.419608)
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 32
+collision_mask = 34
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(0, -7)
+position = Vector2(0, -6)
 shape = SubResource("CircleShape2D_8o4rw")
 debug_color = Color(0.592157, 0.529412, 0.403922, 0.419608)
+
+[node name="AssistRadius" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AssistRadius"]
+position = Vector2(0, -7)
+shape = SubResource("CircleShape2D_3fbey")
 
 [connection signal="body_entered" from="ChaseRadius" to="." method="_on_chase_radius_body_entered"]
 [connection signal="body_exited" from="ChaseRadius" to="." method="_on_chase_radius_body_exited"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

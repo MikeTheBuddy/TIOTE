@@ -1,0 +1,222 @@
+[gd_scene load_steps=22 format=3 uid="uid://b33osamp81clc"]
+
+[ext_resource type="Script" path="res://npc.gd" id="1_i5ldl"]
+[ext_resource type="Texture2D" uid="uid://qrwi5brm07ot" path="res://Resources/NPC/dummy_npc_idle.png" id="1_rbn13"]
+[ext_resource type="Texture2D" uid="uid://b6arr8mundv42" path="res://Resources/NPC/interact_near.png" id="2_idpue"]
+[ext_resource type="Animation" uid="uid://cb04shihw1skv" path="res://Resources/NPC/Dialogue/test_dummy/00.test_text.res" id="4_aw1mx"]
+[ext_resource type="Animation" uid="uid://cmykvq4s30b2e" path="res://Resources/NPC/Dialogue/test_dummy/01.test_text.res" id="5_1ac3c"]
+[ext_resource type="Animation" uid="uid://cn108w8t2wdce" path="res://Resources/NPC/Dialogue/test_dummy/02.test_text.res" id="6_1pwht"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a61u3"]
+atlas = ExtResource("1_rbn13")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ujr6m"]
+atlas = ExtResource("1_rbn13")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d1l3w"]
+atlas = ExtResource("1_rbn13")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qsavh"]
+atlas = ExtResource("1_rbn13")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2p8sc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a61u3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ujr6m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d1l3w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qsavh")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gjhva"]
+size = Vector2(8, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b8e1h"]
+size = Vector2(22, 23)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_56q1s"]
+bg_color = Color(0, 0.219608, 0.317647, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_eiw4l"]
+line_spacing = 1.0
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cl0kg"]
+_data = {
+"00.test_text": ExtResource("4_aw1mx"),
+"01.test_text": ExtResource("5_1ac3c"),
+"02.test_text": ExtResource("6_1pwht")
+}
+
+[sub_resource type="Animation" id="Animation_6kr3r"]
+resource_name = "pop_dialogue"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Dialogue:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(0.3, 0.3)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Dialogue:visible_characters")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_xpfe0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Dialogue:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_atggj"]
+resource_name = "default"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Dialogue:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+
+[sub_resource type="Animation" id="Animation_jky06"]
+resource_name = "visible_text"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Dialogue:visible_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2m36i"]
+_data = {
+"RESET": SubResource("Animation_xpfe0"),
+"default": SubResource("Animation_atggj"),
+"pop_dialogue": SubResource("Animation_6kr3r"),
+"visible_text": SubResource("Animation_jky06")
+}
+
+[node name="NPC" type="CharacterBody2D"]
+y_sort_enabled = true
+collision_mask = 0
+script = ExtResource("1_i5ldl")
+
+[node name="NPCAnimatedSprite" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
+sprite_frames = SubResource("SpriteFrames_2p8sc")
+animation = &"idle"
+frame_progress = 0.637506
+offset = Vector2(0, -8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_gjhva")
+
+[node name="Interact" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interact"]
+position = Vector2(0, -6)
+shape = SubResource("RectangleShape2D_b8e1h")
+debug_color = Color(0.427451, 0.596078, 0.207843, 0.419608)
+
+[node name="Sprite2D" type="Sprite2D" parent="Interact"]
+visible = false
+z_index = 50
+position = Vector2(-2.84217e-14, -18)
+scale = Vector2(0.4375, 0.4375)
+texture = ExtResource("2_idpue")
+
+[node name="Dialogue" type="Label" parent="."]
+z_index = 350
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -100.0
+offset_right = 150.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(150, 80)
+theme_override_styles/normal = SubResource("StyleBoxFlat_56q1s")
+text = "Or I guess not..."
+label_settings = SubResource("LabelSettings_eiw4l")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="LabelAnimator" type="AnimationPlayer" parent="Dialogue"]
+libraries = {
+"": SubResource("AnimationLibrary_cl0kg")
+}
+
+[node name="BoxAnimator" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_2m36i")
+}
+
+[node name="Select" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Select"]
+position = Vector2(0, -6)
+shape = SubResource("RectangleShape2D_b8e1h")
+debug_color = Color(0.427451, 0.596078, 0.207843, 0)
+
+[node name="TalkResetDelay" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="area_entered" from="Interact" to="." method="_on_interact_area_entered"]
+[connection signal="area_exited" from="Interact" to="." method="_on_interact_area_exited"]
+[connection signal="area_entered" from="Select" to="." method="_on_select_area_entered"]

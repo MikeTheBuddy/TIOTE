@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=3 uid="uid://b5g77xm3ejjlm"]
+
+[ext_resource type="Script" path="res://battle_player.gd" id="1_hk1cj"]
+[ext_resource type="Texture2D" uid="uid://bei2ni5ki5uxv" path="res://Resources/BattleIcons/player_battle_TEMP.png" id="1_k7tns"]
+[ext_resource type="Resource" uid="uid://defhgda6tnv8i" path="res://player_info.tres" id="2_000ji"]
+
+[node name="battle_player" type="Node2D"]
+script = ExtResource("1_hk1cj")
+player_info = ExtResource("2_000ji")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -3)
+texture = ExtResource("1_k7tns")
+
+[node name="Options" type="VBoxContainer" parent="."]
+visible = false
+offset_left = 10.0
+offset_top = -30.0
+offset_right = 75.0
+offset_bottom = 65.0
+theme_override_constants/separation = 1
+
+[node name="Attack" type="Button" parent="Options"]
+layout_mode = 2
+text = "Attack"
+
+[node name="Defend" type="Button" parent="Options"]
+layout_mode = 2
+text = "Defend"
+
+[node name="Run" type="Button" parent="Options"]
+layout_mode = 2
+text = "Run"
+
+[node name="Confirm" type="Button" parent="."]
+visible = false
+offset_left = -83.0
+offset_top = 1.0
+offset_right = -12.0
+offset_bottom = 32.0
+text = "Confirm"
+
+[connection signal="pressed" from="Options/Attack" to="." method="_on_attack_pressed"]
+[connection signal="pressed" from="Options/Defend" to="." method="_on_defend_pressed"]
+[connection signal="pressed" from="Confirm" to="." method="_on_confirm_pressed"]

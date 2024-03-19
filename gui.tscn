@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bdddl6vmb4qnc"]
+[gd_scene load_steps=6 format=3 uid="uid://bdddl6vmb4qnc"]
 
 [ext_resource type="Texture2D" uid="uid://easyj3b2vwye" path="res://Resources/Player/wallet.png" id="1_i5ki3"]
 [ext_resource type="Script" path="res://gui.gd" id="1_xc68u"]
+[ext_resource type="Resource" uid="uid://defhgda6tnv8i" path="res://player_info.tres" id="2_vv0pv"]
 
 [sub_resource type="Animation" id="Animation_fafup"]
 resource_name = "Wallet_Shake"
@@ -13,10 +14,10 @@ tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(352, 192), Vector2(356, 192), Vector2(352, 192), Vector2(348, 192)]
+"values": [Vector2(352, 192), Vector2(356, 192), Vector2(352, 192), Vector2(348, 192), Vector2(352, 192)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qrbdb"]
@@ -34,6 +35,40 @@ offset_bottom = -448.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xc68u")
+player_info = ExtResource("2_vv0pv")
+
+[node name="HealthSegments" type="HBoxContainer" parent="."]
+layout_mode = 2
+offset_top = 180.0
+offset_right = 100.0
+offset_bottom = 200.0
+theme_override_constants/separation = 1
+
+[node name="GlobalClock" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -42.0
+offset_top = -23.0
+offset_right = 42.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "NULL TIME"
+
+[node name="Location" type="Label" parent="."]
+layout_mode = 0
+offset_top = -25.0
+offset_right = 42.0
+offset_bottom = -2.0
+text = "NULL"
+
+[node name="LocationTimer" type="Timer" parent="Location"]
+wait_time = 2.0
+one_shot = true
+autostart = true
 
 [node name="Wallet" type="TextureRect" parent="."]
 layout_mode = 1
@@ -56,29 +91,6 @@ one_shot = true
 libraries = {
 "": SubResource("AnimationLibrary_qrbdb")
 }
-
-[node name="Location" type="Label" parent="."]
-layout_mode = 0
-offset_top = -25.0
-offset_right = 42.0
-offset_bottom = -2.0
-text = "NULL"
-
-[node name="LocationTimer" type="Timer" parent="Location"]
-wait_time = 2.0
-one_shot = true
-autostart = true
-
-[node name="HealthBar" type="ProgressBar" parent="."]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -27.0
-offset_right = 124.0
-grow_vertical = 0
-value = 20.0
-show_percentage = false
 
 [connection signal="picked_up_coin" from="." to="." method="_on_picked_up_coin"]
 [connection signal="shake_wallet" from="." to="." method="_on_shake_wallet"]

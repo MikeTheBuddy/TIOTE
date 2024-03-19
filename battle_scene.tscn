@@ -1,0 +1,87 @@
+[gd_scene load_steps=6 format=3 uid="uid://lndqn004u2m7"]
+
+[ext_resource type="Script" path="res://BattleScene.gd" id="1_r17if"]
+[ext_resource type="Resource" uid="uid://defhgda6tnv8i" path="res://player_info.tres" id="2_baswf"]
+[ext_resource type="Texture2D" uid="uid://u2hrn44kkgp6" path="res://Resources/BattleIcons/target.png" id="2_c76t2"]
+
+[sub_resource type="Animation" id="Animation_1p1n2"]
+resource_name = "open_battle_screen"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(3, 3)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7q51o"]
+_data = {
+"open_battle_screen": SubResource("Animation_1p1n2")
+}
+
+[node name="BattleScene" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 410.0
+offset_top = 420.0
+offset_right = -412.0
+offset_bottom = -82.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1e-05, 1e-05)
+pivot_offset = Vector2(165, 170)
+color = Color(0, 0.180392, 0.423529, 1)
+script = ExtResource("1_r17if")
+player_info = ExtResource("2_baswf")
+
+[node name="TurnOrder" type="Node2D" parent="."]
+
+[node name="Options" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 45.0
+offset_bottom = 58.0
+theme_override_constants/separation = 1
+
+[node name="Attack" type="Button" parent="Options"]
+layout_mode = 2
+text = "Attack"
+
+[node name="Defend" type="Button" parent="Options"]
+layout_mode = 2
+text = "Defend"
+
+[node name="Run" type="Button" parent="Options"]
+layout_mode = 2
+text = "Run"
+
+[node name="Target" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(47, 169)
+texture = ExtResource("2_c76t2")
+
+[node name="PlayerLocation" type="Marker2D" parent="."]
+position = Vector2(100, 112)
+
+[node name="Monster1Location" type="Marker2D" parent="."]
+position = Vector2(240, 60)
+
+[node name="Monster2Location" type="Marker2D" parent="."]
+position = Vector2(260, 100)
+
+[node name="Monster3Location" type="Marker2D" parent="."]
+position = Vector2(280, 140)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_7q51o")
+}
+
+[connection signal="pressed" from="Options/Attack" to="." method="_on_attack_pressed"]

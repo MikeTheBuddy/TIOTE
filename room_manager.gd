@@ -8,6 +8,7 @@ const SLIME = preload("res://slime.tscn")
 
 @onready var interactables = $Interactables
 @onready var monsters = $Monsters
+@onready var deload_buffer_area = $DeloadBufferArea
 
 @onready var deload_time = $DeloadTime
 
@@ -35,12 +36,17 @@ func _on_body_entered(_body):
 		counter += 1
 
 	counter = 0
+	
+	var slime_num = 0
+	
 	for i in layout_info.monster_layout:
 		if active_monsters[counter] == true:
 			var monster = null
-			match int(i.z):
-				0:
+			match int(i.z): # (ID,x,y)
+				0: # Slime
 					monster = SLIME.instantiate()
+					monster.name = "Slime" + str(slime_num)
+					slime_num += 1
 		
 		
 			monster.position = Vector2(-168+i.x*16,-48+i.y*16)
@@ -50,6 +56,7 @@ func _on_body_entered(_body):
 
 
 func _on_body_exited(_body):
+	deload_buffer_area.set_collision_layer_value(9,true)
 	if deload_time.is_inside_tree():
 		deload_time.start()
 		await deload_time.timeout
@@ -60,5 +67,6 @@ func _on_body_exited(_body):
 		for i in range(0,monsters.get_child_count()):
 			active_monsters[i] = monsters.get_child(i).alive
 			monsters.get_child(i).queue_free()
+	deload_buffer_area.set_collision_layer_value(9,false)
 
 	#print("Room " + str(position) + " Was Exited")
