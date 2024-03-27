@@ -1,11 +1,19 @@
-[gd_resource type="Resource" script_class="MonsterStats" load_steps=3 format=3 uid="uid://bhvcusiedxfw4"]
+[gd_resource type="Resource" script_class="MonsterStats" load_steps=7 format=3 uid="uid://bhvcusiedxfw4"]
 
+[ext_resource type="Animation" uid="uid://dad6uccraaw2c" path="res://Battle/Animations/Slime/slime_chase.res" id="1_7deya"]
+[ext_resource type="Animation" uid="uid://crve4ghc30r3l" path="res://Battle/Animations/Slime/slime_idle.res" id="1_016yw"]
+[ext_resource type="Animation" uid="uid://ciaws7f8inm4q" path="res://Battle/Animations/Slime/slime_attack.res" id="1_fm701"]
 [ext_resource type="Script" path="res://monster_stats.gd" id="1_tcerv"]
-[ext_resource type="Texture2D" uid="uid://bu6pa8ahbi24j" path="res://Resources/BattleIcons/slime_battle_TEMP.png" id="2_wyw40"]
+[ext_resource type="Texture2D" uid="uid://n7hfbkorr4ha" path="res://Resources/Monsters/slime_sprite.png" id="2_p0rib"]
+[ext_resource type="Animation" uid="uid://7bo7aty1ovui" path="res://Battle/Animations/Slime/slime_death.res" id="2_xqsaj"]
 
 [resource]
 script = ExtResource("1_tcerv")
 health = 10
 defense = 0
 attack = 10
-sprite = ExtResource("2_wyw40")
+sprite = ExtResource("2_p0rib")
+idle_animation = ExtResource("1_016yw")
+chase_animation = ExtResource("1_7deya")
+death_animation = ExtResource("2_xqsaj")
+attack_animation = ExtResource("1_fm701")

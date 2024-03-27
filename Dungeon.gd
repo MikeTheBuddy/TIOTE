@@ -47,7 +47,6 @@ var horizontal_door_height = 2
 @onready var map_node = $Player/MapNode
 @onready var dungeon_rooms = $Rooms
 
-
 var level = 1
 
 signal generate_dungeon

@@ -1116,7 +1116,6 @@ metadata/_edit_vertical_guides_ = [-5.0]
 
 [node name="GUI" parent="GUILayer" instance=ExtResource("6_p6mp7")]
 z_index = 1
-scale = Vector2(3, 3)
 
 [node name="CameraSnap" type="Camera2D" parent="."]
 z_index = 20

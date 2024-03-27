@@ -1,0 +1,58 @@
+[gd_scene load_steps=5 format=3 uid="uid://dgky2u6gsbic2"]
+
+[ext_resource type="Script" path="res://inventory_item.gd" id="1_d65jf"]
+[ext_resource type="LabelSettings" uid="uid://72i37m3rhkjm" path="res://Fonts/LabelSettings/inventory_item_labelsettings.tres" id="1_yw6a6"]
+[ext_resource type="Texture2D" uid="uid://bqsxlqepthk2a" path="res://Themes/UIBackgroundNine.png" id="2_j3je8"]
+[ext_resource type="Texture2D" uid="uid://cjessqii26b4f" path="res://UIElements/empty_UI.png" id="3_op4jg"]
+
+[node name="Item" type="Button"]
+custom_minimum_size = Vector2(0, 20)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1002.0
+offset_bottom = -652.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_d65jf")
+
+[node name="ItemName" type="Label" parent="."]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_right = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Empty"
+label_settings = ExtResource("1_yw6a6")
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="NinePatchRect" type="NinePatchRect" parent="ItemName"]
+show_behind_parent = true
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_right = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 0
+texture = ExtResource("2_j3je8")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+
+[node name="ItemIcon" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 17.0
+offset_bottom = 17.0
+texture = ExtResource("3_op4jg")

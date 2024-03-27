@@ -1,0 +1,92 @@
+[gd_scene load_steps=9 format=3 uid="uid://bhvjw6dlpmxf7"]
+
+[ext_resource type="Script" path="res://menu_ui.gd" id="1_2x8ys"]
+[ext_resource type="Texture2D" uid="uid://bqsxlqepthk2a" path="res://Themes/UIBackgroundNine.png" id="1_j507h"]
+[ext_resource type="Resource" uid="uid://defhgda6tnv8i" path="res://player_info.tres" id="2_b43ps"]
+[ext_resource type="FontFile" uid="uid://civfbkuatqxec" path="res://Fonts/test_font.png" id="5_c0foi"]
+[ext_resource type="LabelSettings" uid="uid://72i37m3rhkjm" path="res://Fonts/LabelSettings/inventory_item_labelsettings.tres" id="5_r5ahg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qhiqd"]
+bg_color = Color(0.345098, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bdkom"]
+bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="Theme" id="Theme_dcjnn"]
+
+[node name="MenuUI" type="Control"]
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+offset_right = -768.0
+offset_bottom = 224.0
+grow_horizontal = 2
+script = ExtResource("1_2x8ys")
+player_info = ExtResource("2_b43ps")
+
+[node name="ItemDropDown" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 164.0
+offset_top = 42.0
+offset_right = 314.0
+offset_bottom = 142.0
+theme_override_constants/separation = 1
+
+[node name="MenuBlock" type="NinePatchRect" parent="."]
+show_behind_parent = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 4.0
+grow_horizontal = 2
+texture = ExtResource("1_j507h")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+
+[node name="HealthBar" type="ProgressBar" parent="MenuBlock"]
+process_mode = 2
+layout_mode = 0
+offset_left = 12.0
+offset_top = 16.0
+offset_right = 81.0
+offset_bottom = 34.0
+focus_neighbor_right = NodePath("../Button")
+focus_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_qhiqd")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bdkom")
+value = 20.0
+show_percentage = false
+
+[node name="HealthValue" type="Label" parent="MenuBlock/HealthBar"]
+layout_mode = 0
+offset_left = 73.0
+offset_top = 5.0
+offset_right = 97.0
+offset_bottom = 13.0
+text = "0/0"
+label_settings = ExtResource("5_r5ahg")
+
+[node name="Button" type="Button" parent="MenuBlock"]
+layout_mode = 0
+offset_left = 123.0
+offset_top = 9.0
+offset_right = 170.0
+offset_bottom = 40.0
+focus_neighbor_left = NodePath("../HealthBar")
+theme = SubResource("Theme_dcjnn")
+text = "test1"
+
+[node name="Items" type="Button" parent="MenuBlock"]
+layout_mode = 0
+offset_left = 176.0
+offset_top = 9.0
+offset_right = 228.0
+offset_bottom = 40.0
+theme_override_fonts/font = ExtResource("5_c0foi")
+text = "Items"
+
+[connection signal="pressed" from="MenuBlock/Items" to="." method="_on_items_pressed"]

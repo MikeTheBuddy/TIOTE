@@ -9,3 +9,8 @@ class_name MonsterStats
 
 @export_category("Sprites")
 @export var sprite: Texture2D
+@export var idle_animation: Animation
+@export var chase_animation: Animation
+@export var death_animation: Animation
+@export var attack_animation: Animation
+

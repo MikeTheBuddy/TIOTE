@@ -1,0 +1,22 @@
+[remap]
+
+importer="font_data_image"
+type="FontFile"
+uid="uid://civfbkuatqxec"
+path="res://.godot/imported/test_font.png-38358b74e60b52a4cf149710e23f0d25.fontdata"
+
+[deps]
+
+source_file="res://Fonts/test_font.png"
+dest_files=["res://.godot/imported/test_font.png-38358b74e60b52a4cf149710e23f0d25.fontdata"]
+
+[params]
+
+character_ranges=PackedStringArray("0-127")
+columns=16
+rows=8
+image_margin=Rect2i(0, 0, 0, 0)
+character_margin=Rect2i(0, 0, 0, 0)
+fallbacks=[]
+compress=true
+scaling_mode=2

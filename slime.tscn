@@ -1,10 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://dqc6ctauqb6bo"]
+[gd_scene load_steps=25 format=3 uid="uid://dqc6ctauqb6bo"]
 
 [ext_resource type="Script" path="res://slime.gd" id="1_4u1vd"]
 [ext_resource type="Texture2D" uid="uid://bro5onfqias0i" path="res://Resources/Monsters/slime.png" id="1_k13bn"]
+[ext_resource type="SpriteFrames" uid="uid://d0o2tw10umvgr" path="res://Battle/Animations/Slime/slime.tres" id="3_43jub"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xsrnx"]
-size = Vector2(12, 4)
+size = Vector2(12, 3)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lj3vx"]
 atlas = ExtResource("1_k13bn")
@@ -99,11 +100,204 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_nrf8k"]
 radius = 57.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_8o4rw"]
-radius = 7.07107
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1mixn"]
+size = Vector2(12, 3)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3fbey"]
 radius = 63.2851
+
+[sub_resource type="Animation" id="Animation_bgaub"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MonsterSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MonsterSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MonsterSprite:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MonsterSprite:offset")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -5)]
+}
+
+[sub_resource type="Animation" id="Animation_gk4ke"]
+resource_name = "slime_chase"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MonsterSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MonsterSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MonsterSprite:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(0.9, 0.9)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MonsterSprite:offset")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -5)]
+}
+
+[sub_resource type="Animation" id="Animation_yiho7"]
+resource_name = "slime_death"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MonsterSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"death"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MonsterSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MonsterSprite:offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -5)]
+}
+
+[sub_resource type="Animation" id="Animation_3gftw"]
+resource_name = "slime_idle"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MonsterSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MonsterSprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.05, 1.05), Vector2(1, 1), Vector2(0.95, 0.95)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MonsterSprite:offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sfl3n"]
+_data = {
+"RESET": SubResource("Animation_bgaub"),
+"slime_chase": SubResource("Animation_gk4ke"),
+"slime_death": SubResource("Animation_yiho7"),
+"slime_idle": SubResource("Animation_3gftw")
+}
 
 [node name="Slime" type="CharacterBody2D"]
 z_index = 2
@@ -113,10 +307,12 @@ collision_mask = 20
 script = ExtResource("1_4u1vd")
 
 [node name="CollisionBox" type="CollisionShape2D" parent="."]
-position = Vector2(0, -3)
+visible = false
+position = Vector2(0, -1.5)
 shape = SubResource("RectangleShape2D_xsrnx")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
 y_sort_enabled = true
 sprite_frames = SubResource("SpriteFrames_s6tlt")
 animation = &"Idle"
@@ -128,6 +324,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChaseRadius"]
+visible = false
 position = Vector2(0, -6)
 shape = SubResource("CircleShape2D_nrf8k")
 debug_color = Color(0.866667, 0.32549, 0.360784, 0.419608)
@@ -137,8 +334,9 @@ collision_layer = 0
 collision_mask = 34
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(0, -6)
-shape = SubResource("CircleShape2D_8o4rw")
+visible = false
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_1mixn")
 debug_color = Color(0.592157, 0.529412, 0.403922, 0.419608)
 
 [node name="AssistRadius" type="Area2D" parent="."]
@@ -146,8 +344,20 @@ collision_layer = 0
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AssistRadius"]
+visible = false
 position = Vector2(0, -7)
 shape = SubResource("CircleShape2D_3fbey")
+
+[node name="MonsterSprite" type="AnimatedSprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.803922)
+sprite_frames = ExtResource("3_43jub")
+animation = &"idle"
+offset = Vector2(0, -5)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_sfl3n")
+}
 
 [connection signal="body_entered" from="ChaseRadius" to="." method="_on_chase_radius_body_entered"]
 [connection signal="body_exited" from="ChaseRadius" to="." method="_on_chase_radius_body_exited"]

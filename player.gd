@@ -125,6 +125,10 @@ func _process(_delta):
 
 func _process(_delta):
 	animate()
+	#player_info.money = money
+	#label.text = "Health: " + str(player_info.current_health)
+	#label.text = "Money: " + str(player_info.money)
+	label.text = str(player_info.inventory)
 
 func _physics_process(delta):
 	#print(velocity)

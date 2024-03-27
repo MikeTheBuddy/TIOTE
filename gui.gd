@@ -3,6 +3,7 @@ extends Control
 @onready var animation_player = $Wallet/AnimationPlayer
 @onready var wallet_timer = $Wallet/WalletTimer
 @onready var wallet = $Wallet
+@onready var menu_ui = $MenuUI
 
 const WALLETSPEED = 10
 
@@ -19,6 +20,8 @@ signal health_updated(time)
 @onready var health_segments = $HealthSegments
 
 @export var player_info:Resource
+
+var in_menu = false
 
 func _ready():
 	#health.max_value = player_info.max_health
@@ -51,6 +54,7 @@ func _ready():
 	
 	#print(health_segments.size.x)
 
+
 func _process(_delta):
 	if wallet_timer.is_stopped() == false:
 		wallet.position.y = move_toward(wallet.position.y, 192, 3)
@@ -72,10 +76,34 @@ func _process(_delta):
 	if Input.is_action_just_pressed("ui_focus_next"):
 		change_health(15)
 			
+	if Input.is_action_just_pressed("DebugButton") and Gamestates.in_battle == false:
+		if in_menu == false:
+			open_menu()
+			in_menu = true
+		else:
+			close_menu()
+			in_menu = false
 
 	# Updating the running timer we are currently testing
 	global_clock.text = str(Globaltime.minutes) + ":" + str(Globaltime.seconds) 
 
+func open_menu():
+	print("OPENING MENU")
+	match get_tree().current_scene.name:
+		"Dungeon":
+			get_tree().paused = true
+		"Overworld":
+			get_tree().paused = true
+	menu_ui.call("show_menu")
+
+func close_menu():
+	print("CLOSING MENU")
+	match get_tree().current_scene.name:
+		"Dungeon":
+			get_node("/root/Dungeon/Player").get_tree().paused = false
+		"Overworld":
+			get_node("/root/Overworld/Player").get_tree().paused = false
+	menu_ui.call("hide_menu")
 func _on_picked_up_coin():
 	wallet_timer.start()
 
@@ -103,19 +131,13 @@ func change_health(change_value):
 	elif new_health > player_info.max_health:
 		new_health = player_info.max_health
 	
-	var current_health = player_info.current_health
+	#var current_health = player_info.current_health
 	player_info.current_health = new_health
 	
-	#$PlayerBars/Health.value = new_health
-	#print(player_info.max_health)
-	#print(health_segments.get_child_count())
-	#var delay = abs(current_health-player_info.current_health)/10
-	#print(delay)
-	#print(str(current_health) + "|" + str(new_health))
-	if current_health > new_health:
-		await decrease_health_animation()
-	else:
-		await increase_health_animation()
+	#if current_health > new_health:
+	#	await decrease_health_animation()
+	#else:
+	#	await increase_health_animation()
 	#print("FINISHED")
 	#clampf(delay,2,10)
 	health_updated.emit(3)
@@ -132,9 +154,8 @@ func decrease_health_animation():
 	#print("FINISHED")
 	
 func increase_health_animation():
-	#print("HERE")
+	
 	for health_point in range(0,player_info.max_health):
-		#print("UPDATING")
 		if health_point > player_info.current_health - 1:
 			break
 		else:

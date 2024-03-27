@@ -43,32 +43,13 @@ player_info = ExtResource("2_baswf")
 
 [node name="TurnOrder" type="Node2D" parent="."]
 
-[node name="Options" type="VBoxContainer" parent="."]
-visible = false
-layout_mode = 0
-offset_right = 45.0
-offset_bottom = 58.0
-theme_override_constants/separation = 1
-
-[node name="Attack" type="Button" parent="Options"]
-layout_mode = 2
-text = "Attack"
-
-[node name="Defend" type="Button" parent="Options"]
-layout_mode = 2
-text = "Defend"
-
-[node name="Run" type="Button" parent="Options"]
-layout_mode = 2
-text = "Run"
-
 [node name="Target" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(47, 169)
 texture = ExtResource("2_c76t2")
 
 [node name="PlayerLocation" type="Marker2D" parent="."]
-position = Vector2(100, 112)
+position = Vector2(105, 120)
 
 [node name="Monster1Location" type="Marker2D" parent="."]
 position = Vector2(240, 60)
@@ -84,4 +65,7 @@ libraries = {
 "": SubResource("AnimationLibrary_7q51o")
 }
 
-[connection signal="pressed" from="Options/Attack" to="." method="_on_attack_pressed"]
+[node name="Health" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bcv3tv1xslsow"]
+[gd_scene load_steps=16 format=3 uid="uid://bcv3tv1xslsow"]
 
 [ext_resource type="Script" path="res://overworld.gd" id="1_dkl0x"]
 [ext_resource type="Texture2D" uid="uid://dj2hlsqkgrmci" path="res://Resources/overworld_tileset.png" id="1_ypaot"]
@@ -9,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://6w0b12kvpbfx" path="res://Resources/DoorTeleports/test_portal_2.tres" id="6_o6da2"]
 [ext_resource type="PackedScene" uid="uid://bdddl6vmb4qnc" path="res://gui.tscn" id="7_4b6dv"]
 [ext_resource type="PackedScene" uid="uid://b33osamp81clc" path="res://npc.tscn" id="9_4ira2"]
+[ext_resource type="PackedScene" uid="uid://dp752bqrmwkuc" path="res://shop_item.tscn" id="10_s24rb"]
 
 [sub_resource type="Gradient" id="Gradient_4schl"]
 interpolation_mode = 2
@@ -1065,7 +1066,6 @@ zoom = Vector2(3, 3)
 [node name="GUILayer" type="CanvasLayer" parent="."]
 
 [node name="GUI" parent="GUILayer" instance=ExtResource("7_4b6dv")]
-scale = Vector2(3, 3)
 
 [node name="DayCycle" type="CanvasModulate" parent="."]
 
@@ -1075,3 +1075,6 @@ y_sort_enabled = true
 
 [node name="NPC" parent="NPCS" instance=ExtResource("9_4ira2")]
 position = Vector2(384, 160)
+
+[node name="ShopItem" parent="." instance=ExtResource("10_s24rb")]
+position = Vector2(278, 186)

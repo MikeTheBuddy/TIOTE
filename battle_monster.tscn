@@ -1,8 +1,16 @@
-[gd_scene load_steps=8 format=3 uid="uid://bqm1regpvq68g"]
+[gd_scene load_steps=14 format=3 uid="uid://bqm1regpvq68g"]
 
 [ext_resource type="Script" path="res://battle_monster.gd" id="1_5c6ka"]
-[ext_resource type="Texture2D" uid="uid://bu6pa8ahbi24j" path="res://Resources/BattleIcons/slime_battle_TEMP.png" id="2_6se8f"]
+[ext_resource type="Texture2D" uid="uid://7ge2itdrixm3" path="res://icon.svg" id="2_6xep6"]
+[ext_resource type="Shader" path="res://Shaders/outline.gdshader" id="3_mexaf"]
 [ext_resource type="Texture2D" uid="uid://u2hrn44kkgp6" path="res://Resources/BattleIcons/target.png" id="3_x42t7"]
+[ext_resource type="SpriteFrames" uid="uid://d0o2tw10umvgr" path="res://Battle/Animations/Slime/slime.tres" id="4_a5nxj"]
+[ext_resource type="Animation" uid="uid://ciaws7f8inm4q" path="res://Battle/Animations/Slime/slime_attack.res" id="6_ew5l5"]
+
+[sub_resource type="Gradient" id="Gradient_4dr0d"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ln3cp"]
+gradient = SubResource("Gradient_4dr0d")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eev02"]
 bg_color = Color(0.678431, 0.580392, 0.509804, 1)
@@ -10,35 +18,50 @@ bg_color = Color(0.678431, 0.580392, 0.509804, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_73fnn"]
 bg_color = Color(0.266667, 0.545098, 0.796078, 1)
 
-[sub_resource type="Animation" id="Animation_e0nx7"]
-resource_name = "target_bob"
-loop_mode = 1
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bo7b4"]
+resource_local_to_scene = true
+shader = ExtResource("3_mexaf")
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/enable_shader = false
+
+[sub_resource type="Animation" id="Animation_7pyic"]
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Targeted:position")
+tracks/0/path = NodePath("MonsterSprite:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(75, -75), Vector2(100, -100), Vector2(75, -75)]
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MonsterSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bufuv"]
 _data = {
-"target_bob": SubResource("Animation_e0nx7")
+"RESET": SubResource("Animation_7pyic"),
+"slime_attack": ExtResource("6_ew5l5")
 }
 
 [node name="battle_monster" type="Node2D"]
 script = ExtResource("1_5c6ka")
+gradient = SubResource("GradientTexture1D_ln3cp")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_6se8f")
-flip_h = true
-
-[node name="Health" type="ProgressBar" parent="Sprite2D"]
+[node name="Health" type="ProgressBar" parent="."]
 offset_left = -21.0
 offset_top = 16.0
 offset_right = 20.0
@@ -48,11 +71,22 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_73fnn")
 value = 30.0
 show_percentage = false
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_6xep6")
+flip_h = true
+
+[node name="MonsterSprite" type="AnimatedSprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.576471)
+material = SubResource("ShaderMaterial_bo7b4")
+sprite_frames = ExtResource("4_a5nxj")
+animation = &"idle"
+offset = Vector2(0, -5)
+
 [node name="Targeted" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(80.8963, -80.8963)
+position = Vector2(52, -57)
 texture = ExtResource("3_x42t7")
-offset = Vector2(-60, 60)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

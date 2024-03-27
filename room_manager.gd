@@ -47,8 +47,8 @@ func _on_body_entered(_body):
 					monster = SLIME.instantiate()
 					monster.name = "Slime" + str(slime_num)
 					slime_num += 1
-		
-		
+					
+					
 			monster.position = Vector2(-168+i.x*16,-48+i.y*16)
 			monsters.call_deferred("add_child",monster)
 		

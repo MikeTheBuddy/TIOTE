@@ -2,11 +2,14 @@ extends Node2D
 
 
 @export var player_info: Resource
+@onready var animation_player = $AnimationPlayer
 
 signal turn_end
 signal selecting_monsters(type)
 signal defending(status)
-signal dead
+
+func _ready():
+	animation_player.play("idle_sword")
 
 func turn_start():
 	defending.emit(false)
@@ -26,7 +29,6 @@ func _on_attack_pressed():
 
 func _on_confirm_pressed():
 	$Confirm.visible = false
-	
 
 
 

@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bdddl6vmb4qnc"]
+[gd_scene load_steps=7 format=3 uid="uid://bdddl6vmb4qnc"]
 
 [ext_resource type="Texture2D" uid="uid://easyj3b2vwye" path="res://Resources/Player/wallet.png" id="1_i5ki3"]
 [ext_resource type="Script" path="res://gui.gd" id="1_xc68u"]
 [ext_resource type="Resource" uid="uid://defhgda6tnv8i" path="res://player_info.tres" id="2_vv0pv"]
+[ext_resource type="PackedScene" uid="uid://bhvjw6dlpmxf7" path="res://menu_ui.tscn" id="4_fbrj0"]
 
 [sub_resource type="Animation" id="Animation_fafup"]
 resource_name = "Wallet_Shake"
@@ -26,6 +27,7 @@ _data = {
 }
 
 [node name="GUI" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -34,6 +36,7 @@ offset_right = -768.0
 offset_bottom = -448.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(3, 3)
 script = ExtResource("1_xc68u")
 player_info = ExtResource("2_vv0pv")
 
@@ -51,9 +54,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -42.0
-offset_top = -23.0
-offset_right = 42.0
+offset_left = -49.0
+offset_top = -25.0
+offset_right = 35.0
+offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "NULL TIME"
@@ -78,8 +82,7 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -32.0
-offset_top = -4.0
-offset_bottom = 28.0
+offset_top = -32.0
 grow_horizontal = 0
 grow_vertical = 0
 texture = ExtResource("1_i5ki3")
@@ -91,6 +94,12 @@ one_shot = true
 libraries = {
 "": SubResource("AnimationLibrary_qrbdb")
 }
+
+[node name="MenuUI" parent="." instance=ExtResource("4_fbrj0")]
+visible = false
+layout_mode = 1
+offset_right = 0.0
+offset_bottom = 0.0
 
 [connection signal="picked_up_coin" from="." to="." method="_on_picked_up_coin"]
 [connection signal="shake_wallet" from="." to="." method="_on_shake_wallet"]

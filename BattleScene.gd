@@ -13,7 +13,7 @@ const battle_player = preload("res://battle_player.tscn")
 
 @onready var turn_order = $TurnOrder
 #@onready var target = $Target
-@onready var options = $Options
+#@onready var options = $Options
 
 @onready var player_location = $PlayerLocation
 @onready var monster_1_location = $Monster1Location
@@ -57,8 +57,8 @@ func _ready():
 	if monster_1 != null:
 		var monster = battle_monster.instantiate()
 		var monster_info = identify_monster(monster_1)
-		monster.get_node("Sprite2D").texture = monster_info[0]
-		monster.stats = monster_info[1]
+		#monster.get_node("Sprite2D").texture = monster_info[0]
+		monster.stats = monster_info
 		monster.name = "monster1"
 		monster.position = monster_1_location.position
 		turn_order.add_child(monster)
@@ -68,8 +68,8 @@ func _ready():
 	if monster_2 != null:
 		var monster = battle_monster.instantiate()
 		var monster_info = identify_monster(monster_1)
-		monster.get_node("Sprite2D").texture = monster_info[0]
-		monster.stats = monster_info[1]
+		#monster.get_node("Sprite2D").texture = monster_info[0]
+		monster.stats = monster_info
 		monster.name = "monster2"
 		monster.position = monster_2_location.position
 		turn_order.add_child(monster)
@@ -79,8 +79,8 @@ func _ready():
 	if monster_3 != null:
 		var monster = battle_monster.instantiate()
 		var monster_info = identify_monster(monster_1)
-		monster.get_node("Sprite2D").texture = monster_info[0]
-		monster.stats = monster_info[1]
+		#monster.get_node("Sprite2D").texture = monster_info[0]
+		monster.stats = monster_info
 		monster.name = "monster3"
 		monster.position = monster_3_location.position
 		turn_order.add_child(monster)
@@ -88,23 +88,28 @@ func _ready():
 		monster.damage_player.connect(handle_damage)
 
 	# gives a free hit at the start of the fight if the player struck first
+	
+	player_node.get_node("AnimationPlayer").play("entrance")
+	await player_node.get_node("AnimationPlayer").animation_finished
+	
 	if first_strike == true:
-		first_strike_advantage()
+		await first_strike_advantage()
 
 	# start the battle - MAKE INTO A FUNCTION LATER
 	turn_order.get_child(turn).call("turn_start")
 
 # if you want to add more monsters to the game, you add their stuff here
 func identify_monster(body: CharacterBody2D):
-	var needed_information = []
 	match body.ID:
 		0: #Slime
-			needed_information.append(load("res://Resources/BattleIcons/slime_battle_TEMP.png"))
-			needed_information.append(load("res://Battle/MonsterStats/slime_stats.tres"))
-	return needed_information
+			#needed_information.append(load("res://Resources/BattleIcons/slime_battle_TEMP.png"))
+			return load("res://Battle/MonsterStats/slime_stats.tres")
+	#return needed_information
 
 
 func _process(_delta):
+	$Health.text = "HEALTH: " + str(player_info.current_health)
+	
 	if select_monster == true:
 		if Input.is_action_just_pressed("ui_up"):
 			if focus <= 1:
@@ -129,21 +134,6 @@ func _process(_delta):
 		#target.position = turn_order.get_child(focus).position + Vector2(25,-25)
 	
 		
-func _on_attack_pressed():
-	if select_monster == false:
-		focus = 1 # REPLACE WITH FUNCTION TO IDENTIFY REMAINING MONSTERS
-		#target.position = turn_order.get_child(focus).position + Vector2(25,-25)
-		select_monster = true
-		#target.visible = true
-	else:
-		options.visible = false
-		select_monster = false
-		#target.visible = false
-		#TODO REPLACE THIS WITH AN ATTACK 
-		turn_order.get_child(focus).call("take_damage",player_info.attack)
-		await get_tree().create_timer(1).timeout
-		next_turn()
-
 
 func next_turn():
 	# checks if the battle is over
@@ -181,7 +171,7 @@ func end_battle_win():
 	queue_free()
 
 func end_battle_loss():
-	print("DONE")
+	#print("DONE")
 	Gamestates.in_battle = false
 	queue_free()
 
@@ -198,7 +188,24 @@ func single_attack():
 	select_monster = false
 	turn_order.get_child(focus).call("unfocus")
 	player_node.get_node("Confirm").pressed.disconnect(single_attack)
+	
+	var tween = get_tree().create_tween()
+	player_node.get_node("AnimationPlayer").play("approach_enemy")
+	
+	tween.tween_property(player_node, "position", turn_order.get_child(focus).position - Vector2(20,0),0.8)
+	await tween.finished
+
+	
+	player_node.get_node("AnimationPlayer").play("single_attack")
 	turn_order.get_child(focus).call("take_damage",player_info.attack)
+	await player_node.get_node("AnimationPlayer").animation_finished
+	
+	var tween_back = get_tree().create_tween()
+	player_node.get_node("AnimationPlayer").play("approach_enemy")
+	
+	tween_back.tween_property(player_node, "position", player_location.position, 0.8)
+	await tween_back.finished
+	player_node.get_node("AnimationPlayer").play("idle_sword")
 	await get_tree().create_timer(0.5).timeout
 	next_turn()
 
@@ -223,5 +230,7 @@ func defending(status):
 		next_turn()
 
 func first_strike_advantage():
+	player_node.get_node("AnimationPlayer").play("single_attack")
 	for monster_id in range(1,turn_order.get_child_count()):
 		turn_order.get_child(monster_id).call("take_damage",player_info.attack)
+	await player_node.get_node("AnimationPlayer").animation_finished

@@ -3,8 +3,11 @@ extends Area2D
 @onready var animated_sprite_2d = $AnimatedSprite2D
 @onready var fall_time = $FallTime
 @onready var collision_shape_2d = $CollisionShape2D
+@onready var animation_player = $AnimationPlayer
 
 @onready var player = get_node("/root/Dungeon/Player")
+
+@export var player_info: Resource
 
 const player_info_path = "res://player_info.tres"
 
@@ -23,7 +26,7 @@ func _ready():
 	#constant_linear_velocity.x = randi_range(-10,10)
 	#constant_linear_velocity.y = -80
 	velocity_x = randf_range(-1,1)
-	velocity_y = -1
+	velocity_y = randf_range(-1,-0.8)
 	
 	var value = get_meta("value")
 	
@@ -35,6 +38,8 @@ func _ready():
 	
 	if value == 10:
 		animated_sprite_2d.play("coin_gold")
+	
+	animated_sprite_2d.set_frame(randi_range(0,5))
 	
 	fall_time.start()
 	
@@ -48,28 +53,20 @@ func _process(delta):
 		velocity_y += GRAVITY * delta
 	else:
 		collision_shape_2d.disabled = false
-
-	if collected == true:
-		var target_position = get_node("/root/Dungeon/CameraSnap").position + PURSE_LOCATION
-		
-		var speed_x = abs(target_position.x-global_position.x)/10
-		var speed_y = abs(target_position.y-global_position.y)/10
-		
-		global_position.x = move_toward(global_position.x, target_position.x, speed_x)
-		global_position.y = move_toward(global_position.y, target_position.y, speed_y)
-		
-		if round(global_position) >= target_position - Vector2(3,3):
-			get_node("/root/Dungeon/GUILayer/GUI").shake_wallet.emit()
-			queue_free()
-			
+		set_process(false)
 
 
-func _on_body_entered(_body):
-	if collected != true:
-		player.money += get_meta("value")
-		#print(get_meta("value"))
+func _on_area_entered(_area):
 	
-	collected = true
+	animation_player.play("collected")
 	#collision_shape_2d.set_deferred("disabled",true)
+	
+
+
+func _on_animation_player_animation_finished(_anim_name):
+	player_info.money += get_meta("value")
+	
 	z_index = 200
 	get_node("/root/Dungeon/GUILayer/GUI").picked_up_coin.emit()
+	queue_free()
+	
