@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dp752bqrmwkuc"]
+[gd_scene load_steps=28 format=3 uid="uid://dp752bqrmwkuc"]
 
 [ext_resource type="Shader" path="res://Shaders/outline.gdshader" id="1_j4lvs"]
 [ext_resource type="Script" path="res://shop_item.gd" id="1_k81h2"]
@@ -171,6 +171,8 @@ _data = {
 "Purchased": SubResource("Animation_rf0bq"),
 "RESET": SubResource("Animation_hfefg")
 }
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x64i4"]
 
 [sub_resource type="Animation" id="Animation_dmeua"]
 length = 0.001
@@ -463,6 +465,19 @@ debug_color = Color(0, 0.6, 0.701961, 0)
 libraries = {
 "": SubResource("AnimationLibrary_1gel4")
 }
+
+[node name="Price" type="Label" parent="."]
+z_index = 200
+offset_left = -42.0
+offset_top = -6.0
+offset_right = -2.0
+offset_bottom = 6.0
+theme = ExtResource("5_sjapi")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxEmpty_x64i4")
+text = "NULL"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ItemDescription" type="Label" parent="."]
 z_index = 200

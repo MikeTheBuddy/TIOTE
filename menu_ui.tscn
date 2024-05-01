@@ -103,6 +103,29 @@ theme = ExtResource("4_0qu8w")
 theme_override_font_sizes/font_size = 8
 text = "Stats"
 
+[node name="Settings" type="Button" parent="MenuBlock"]
+layout_mode = 0
+offset_left = 235.0
+offset_top = 14.0
+offset_right = 311.0
+offset_bottom = 34.0
+mouse_filter = 2
+theme = ExtResource("4_0qu8w")
+theme_override_font_sizes/font_size = 8
+disabled = true
+text = "Settings"
+
+[node name="Quit" type="Button" parent="MenuBlock"]
+layout_mode = 0
+offset_left = 318.0
+offset_top = 14.0
+offset_right = 367.0
+offset_bottom = 34.0
+mouse_filter = 2
+theme = ExtResource("4_0qu8w")
+theme_override_font_sizes/font_size = 8
+text = "Quit"
+
 [node name="PlayerStats" type="NinePatchRect" parent="."]
 visible = false
 layout_mode = 0
@@ -150,3 +173,4 @@ text = "Money: "
 
 [connection signal="pressed" from="MenuBlock/Items" to="." method="_on_items_pressed"]
 [connection signal="pressed" from="MenuBlock/Stats" to="." method="_on_stats_pressed"]
+[connection signal="pressed" from="MenuBlock/Quit" to="." method="_on_quit_pressed"]

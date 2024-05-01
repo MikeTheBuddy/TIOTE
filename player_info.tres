@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_5x7v2")
-position = Vector2(0, 0)
+position = Vector2(464, -40)
 max_health = 50
 current_health = 4
 money = 10000

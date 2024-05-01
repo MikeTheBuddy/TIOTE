@@ -7,6 +7,7 @@ extends Area2D
 @onready var box_animator = $BoxAnimator
 @onready var label_animator = $ItemDescription/LabelAnimator
 @onready var item_description = $ItemDescription
+@onready var price = $Price
 
 const ITEM_CONSUMABLE_PATH = "res://Resources/Items/"
 
@@ -26,6 +27,7 @@ const CONSUMEABLE_ITEM_LAST_INDEX = 2
 @export var shop_type: Type
 
 
+
 var purchasing = false
 
 var cost: int
@@ -38,6 +40,7 @@ func _ready():
 		restock_item()
 		animation_player.play("Floating")
 	else:
+		price.visible = false
 		disable_interaction()
 		item.texture = load("res://Resources/Items/sold_out_icon.png")
 		animation_player.play("Floating")
@@ -123,6 +126,7 @@ func purchase_item():
 		animation_player.play("Floating")
 		purchase_radius.set_deferred("disabled", false)
 	else:
+		price.text = ""
 		sold_out = true
 		box_animator.play("close_description_box")
 		item.texture = load("res://Resources/Items/sold_out_icon.png")
@@ -158,3 +162,4 @@ func set_item(item_ID):
 			label_animator.play("health_potion_large_description")
 	
 	item_selling = item_ID
+	price.text = str(cost)

@@ -78,3 +78,7 @@ func _on_stats_pressed():
 		player_stats.visible = true
 	else:
 		player_stats.visible = false
+
+
+func _on_quit_pressed():
+	get_tree().quit()

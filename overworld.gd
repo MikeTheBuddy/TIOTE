@@ -14,4 +14,4 @@ func _ready():
 
 func _process(_delta):
 	var value = (sin(Globaltime.timer/TIMER_DAY - PI / 2.0) + 1.0) / 2.0
-	day_cycle.color = gradient.gradient.sample(value)
+	day_cycle.color = gradient.gradient.sample(value+0.3)

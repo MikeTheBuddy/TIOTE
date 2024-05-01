@@ -1,9 +1,10 @@
-[gd_scene load_steps=45 format=3 uid="uid://b5g77xm3ejjlm"]
+[gd_scene load_steps=46 format=3 uid="uid://b5g77xm3ejjlm"]
 
 [ext_resource type="Script" path="res://battle_player.gd" id="1_hk1cj"]
 [ext_resource type="Texture2D" uid="uid://bei2ni5ki5uxv" path="res://Resources/BattleIcons/player_battle_TEMP.png" id="1_k7tns"]
 [ext_resource type="Resource" uid="uid://defhgda6tnv8i" path="res://player_info.tres" id="2_000ji"]
 [ext_resource type="Texture2D" uid="uid://drcc2xe0vrphv" path="res://Resources/Player/player_spritesheet.png" id="4_7fb16"]
+[ext_resource type="Theme" uid="uid://nh2gs2ko17dl" path="res://Themes/main_theme.tres" id="4_edh3o"]
 [ext_resource type="Texture2D" uid="uid://dngcu3ckx07tn" path="res://Resources/Player/sword.png" id="5_5rvoj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6mj21"]
@@ -685,7 +686,6 @@ texture = ExtResource("1_k7tns")
 offset = Vector2(0, -16)
 
 [node name="Options" type="VBoxContainer" parent="."]
-visible = false
 offset_left = 10.0
 offset_top = -30.0
 offset_right = 75.0
@@ -694,22 +694,43 @@ theme_override_constants/separation = 1
 
 [node name="Attack" type="Button" parent="Options"]
 layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("4_edh3o")
+theme_override_font_sizes/font_size = 8
+button_mask = 0
 text = "Attack"
+
+[node name="Skills" type="Button" parent="Options"]
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("4_edh3o")
+theme_override_font_sizes/font_size = 8
+disabled = true
+button_mask = 0
+text = "Skills"
 
 [node name="Defend" type="Button" parent="Options"]
 layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("4_edh3o")
+theme_override_font_sizes/font_size = 8
+button_mask = 0
 text = "Defend"
 
 [node name="Run" type="Button" parent="Options"]
 layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("4_edh3o")
+theme_override_font_sizes/font_size = 8
+button_mask = 0
 text = "Run"
 
-[node name="Confirm" type="Button" parent="."]
-visible = false
-offset_left = -83.0
-offset_top = 1.0
-offset_right = -12.0
-offset_bottom = 32.0
+[node name="Confirm" type="Button" parent="Options"]
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("4_edh3o")
+theme_override_font_sizes/font_size = 8
+button_mask = 0
 text = "Confirm"
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
@@ -737,4 +758,4 @@ libraries = {
 [connection signal="pressed" from="Options/Attack" to="." method="_on_attack_pressed"]
 [connection signal="pressed" from="Options/Defend" to="." method="_on_defend_pressed"]
 [connection signal="pressed" from="Options/Run" to="." method="_on_run_pressed"]
-[connection signal="pressed" from="Confirm" to="." method="_on_confirm_pressed"]
+[connection signal="pressed" from="Options/Confirm" to="." method="_on_confirm_pressed"]

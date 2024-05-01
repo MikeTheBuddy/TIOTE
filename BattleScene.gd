@@ -52,6 +52,7 @@ func _ready():
 	player.position = player_location.position
 	player.turn_end.connect(next_turn)
 	player.selecting_monsters.connect(selecting_monsters)
+	player.cancel_selecting_monsters.connect(cancel_selecting_monsters)
 	player.defending.connect(defending)
 	player.running.connect(running)
 	
@@ -186,7 +187,7 @@ func end_battle_loss():
 	transition.play("fade_out")
 	await transition.animation_finished
 	player_info.current_health = 1
-	player_info.position = Vector2(464,-48)
+	player_info.position = Vector2(464,-40)
 	Gamestates.in_battle = false
 	get_tree().change_scene_to_file("res://interior.tscn")
 	
@@ -197,13 +198,21 @@ func selecting_monsters(test):
 		"Single":
 			select_monster = true
 			turn_order.get_child(focus).call("focus")
-			player_node.get_node("Confirm").pressed.connect(single_attack)
-			
-			
+			player_node.get_node("Options/Confirm").pressed.connect(single_attack)
+
+func cancel_selecting_monsters():
+	for monster_id in range(1,turn_order.get_child_count()):
+		turn_order.get_child(monster_id).call("unfocus")
+
+	# disconnect what option confirm was going to associate with
+	var signal_information = player_node.get_node("Options/Confirm").get_signal_connection_list("pressed")[1]
+	player_node.get_node("Options/Confirm").pressed.disconnect(signal_information["callable"])
+	
+	
 func single_attack():
 	select_monster = false
 	turn_order.get_child(focus).call("unfocus")
-	player_node.get_node("Confirm").pressed.disconnect(single_attack)
+	player_node.get_node("Options/Confirm").pressed.disconnect(single_attack)
 	
 	var tween = get_tree().create_tween()
 	player_node.get_node("AnimationPlayer").play("approach_enemy")
