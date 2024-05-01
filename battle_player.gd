@@ -7,6 +7,7 @@ extends Node2D
 signal turn_end
 signal selecting_monsters(type)
 signal defending(status)
+signal running
 
 func _ready():
 	animation_player.play("idle_sword")
@@ -37,3 +38,8 @@ func _on_defend_pressed():
 	hide_options()
 	defending.emit(true)
 	
+
+
+func _on_run_pressed():
+	hide_options()
+	running.emit()

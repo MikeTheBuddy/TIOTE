@@ -14,13 +14,17 @@ enum Item {Health_Potion_Small,Health_Potion_Medium,Health_Potion_Large}
 
 enum Type {Dungeon_Shop,Overworld_Shop}
 
+const CONSUMEABLE_ITEM_LAST_INDEX = 2
+
 @export var restock: bool
 @export var sold_out: bool
+
 
 @export var player_info: Resource
 
 @export var item_selling: Item
 @export var shop_type: Type
+
 
 var purchasing = false
 
@@ -30,8 +34,13 @@ var cost: int
 # TODO PROTOTYPE WORKS... BUT CAN DEFINITELY BE BETTER
 
 func _ready():
-	animation_player.play("Floating")
-	restock_item()
+	if sold_out == false:
+		restock_item()
+		animation_player.play("Floating")
+	else:
+		disable_interaction()
+		item.texture = load("res://Resources/Items/sold_out_icon.png")
+		animation_player.play("Floating")
 
 
 func disable_outline():
@@ -45,9 +54,7 @@ func enable_outline():
 func _on_area_entered(_area):
 	enable_outline()
 	box_animator.play("pop_description_box")
-	await box_animator.animation_finished
-	box_animator.play("visible_text")
-
+	box_animator.queue("visible_text")
 
 
 func _on_area_exited(_area):
@@ -103,7 +110,7 @@ func purchase_item():
 	await animation_player.animation_finished
 	box_animator.play_backwards("visible_text")
 	await box_animator.animation_finished
-	print("HERE")
+	#print("HERE")
 	
 	if restock == true:
 		await get_tree().create_timer(0.3).timeout
@@ -116,14 +123,22 @@ func purchase_item():
 		animation_player.play("Floating")
 		purchase_radius.set_deferred("disabled", false)
 	else:
-		queue_free()
-	
+		sold_out = true
+		box_animator.play("close_description_box")
+		item.texture = load("res://Resources/Items/sold_out_icon.png")
+		await get_tree().create_timer(0.3).timeout
+		animation_player.play_backwards("Purchased")
+		await animation_player.animation_finished
+		
+		animation_player.play("Floating")
+		
+		
 	purchasing = false
 
 func restock_item():
 	match shop_type:
 		1: # Overworld_Shop
-			var new_item = randi_range(0,Item.size()-1)
+			var new_item = randi_range(0,CONSUMEABLE_ITEM_LAST_INDEX)
 			set_item(new_item)
 
 

@@ -736,4 +736,5 @@ libraries = {
 
 [connection signal="pressed" from="Options/Attack" to="." method="_on_attack_pressed"]
 [connection signal="pressed" from="Options/Defend" to="." method="_on_defend_pressed"]
+[connection signal="pressed" from="Options/Run" to="." method="_on_run_pressed"]
 [connection signal="pressed" from="Confirm" to="." method="_on_confirm_pressed"]

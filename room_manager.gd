@@ -3,6 +3,9 @@ extends Area2D
 const POT = preload("res://pot.tscn")
 
 const SLIME = preload("res://slime.tscn")
+const SKELETON = preload("res://skeleton.tscn")
+
+const SHOPITEM = preload("res://shop_item.tscn")
 
 @export var layout_info: Resource
 
@@ -12,21 +15,42 @@ const SLIME = preload("res://slime.tscn")
 
 @onready var deload_time = $DeloadTime
 
+enum ROOM_TYPE {Normal,Shop,Boss}
+
+const SHOP_ITEM_LOCATIONS = [Vector2(-64,0),Vector2(64,0),Vector2(-64,48),Vector2(64,48)]
+
 var active_pots = []
 
 var active_monsters = []
 
+var shop_items = []
+
+var room_type: ROOM_TYPE
+
+# THIS IS A TEMP SOLUTION FOR SHOP DELOADING
+var shop_loaded = false
+
 func _ready():
-	active_pots.resize(layout_info.pot_layout.size())
-	active_pots.fill(false)
-	
-	active_monsters.resize(layout_info.monster_layout.size())
-	active_monsters.fill(true)
+	match room_type:
+		ROOM_TYPE.Normal:
+			active_pots.resize(layout_info.pot_layout.size())
+			active_pots.fill(false)
+		
+			active_monsters.resize(layout_info.monster_layout.size())
+			active_monsters.fill(true)
 
 
 func _on_body_entered(_body):
-	#print("Room " + str(position) + " Was Entered")
-	#print(active_pots)
+	#print(room_type)
+	match room_type:
+		ROOM_TYPE.Normal:
+			load_room_normal()
+		ROOM_TYPE.Shop:
+			load_room_shop()
+			
+	
+
+func load_room_normal():
 	var counter = 0
 	for i in layout_info.pot_layout:
 		var pot = POT.instantiate()
@@ -37,7 +61,7 @@ func _on_body_entered(_body):
 
 	counter = 0
 	
-	var slime_num = 0
+	var monster_num = 0
 	
 	for i in layout_info.monster_layout:
 		if active_monsters[counter] == true:
@@ -45,8 +69,12 @@ func _on_body_entered(_body):
 			match int(i.z): # (ID,x,y)
 				0: # Slime
 					monster = SLIME.instantiate()
-					monster.name = "Slime" + str(slime_num)
-					slime_num += 1
+					monster.name = "Slime" + str(monster_num)
+					monster_num += 1
+				1: # Skeleton
+					monster = SKELETON.instantiate()
+					monster.name = "Skeleton" + str(monster_num)
+					monster_num += 1
 					
 					
 			monster.position = Vector2(-168+i.x*16,-48+i.y*16)
@@ -54,8 +82,23 @@ func _on_body_entered(_body):
 		
 		counter += 1
 
+func load_room_shop():
+	#TODO MAKE SHOP ROOM LAYOUTS
+	if shop_loaded == false:
+		for x in SHOP_ITEM_LOCATIONS:
+			shop_loaded = true
+			var shopitem = SHOPITEM.instantiate()
+			shopitem.position = x
+			#print(shopitem.position)
+			#shop_items.append(shopitem.)
+			interactables.call_deferred("add_child",shopitem)
 
 func _on_body_exited(_body):
+	match room_type:
+		ROOM_TYPE.Normal:
+			deload_room_normal()
+
+func deload_room_normal():
 	deload_buffer_area.set_collision_layer_value(9,true)
 	if deload_time.is_inside_tree():
 		deload_time.start()
@@ -68,5 +111,3 @@ func _on_body_exited(_body):
 			active_monsters[i] = monsters.get_child(i).alive
 			monsters.get_child(i).queue_free()
 	deload_buffer_area.set_collision_layer_value(9,false)
-
-	#print("Room " + str(position) + " Was Exited")

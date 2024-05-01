@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://lndqn004u2m7"]
+[gd_scene load_steps=9 format=3 uid="uid://lndqn004u2m7"]
 
+[ext_resource type="Texture2D" uid="uid://c3tn2pppny76b" path="res://Themes/nine_color_rect_icon.png" id="1_kodvw"]
 [ext_resource type="Script" path="res://BattleScene.gd" id="1_r17if"]
 [ext_resource type="Resource" uid="uid://defhgda6tnv8i" path="res://player_info.tres" id="2_baswf"]
 [ext_resource type="Texture2D" uid="uid://u2hrn44kkgp6" path="res://Resources/BattleIcons/target.png" id="2_c76t2"]
+[ext_resource type="Theme" uid="uid://nh2gs2ko17dl" path="res://Themes/main_theme.tres" id="5_dka4d"]
 
 [sub_resource type="Animation" id="Animation_1p1n2"]
 resource_name = "open_battle_screen"
@@ -25,7 +27,10 @@ _data = {
 "open_battle_screen": SubResource("Animation_1p1n2")
 }
 
-[node name="BattleScene" type="ColorRect"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_43atc"]
+
+[node name="BattleScene" type="NinePatchRect"]
+self_modulate = Color(0.615686, 0.807843, 1, 1)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -37,7 +42,11 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1e-05, 1e-05)
 pivot_offset = Vector2(165, 170)
-color = Color(0, 0.180392, 0.423529, 1)
+texture = ExtResource("1_kodvw")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
 script = ExtResource("1_r17if")
 player_info = ExtResource("2_baswf")
 
@@ -67,5 +76,10 @@ libraries = {
 
 [node name="Health" type="Label" parent="."]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 15.0
+offset_top = 13.3333
+offset_right = 55.0
+offset_bottom = 36.3333
+theme = ExtResource("5_dka4d")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxEmpty_43atc")

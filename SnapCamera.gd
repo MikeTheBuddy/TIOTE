@@ -4,6 +4,8 @@ var camera_room_position = Vector2(0,0)
 #@onready var player = $"../Player"
 @onready var player = $"/root/Dungeon/Player"
 @onready var transition_time = $TransitionTime
+@onready var map = $"../GUILayer/Map"
+
 
 const CAMSPEED = 10
 
@@ -30,9 +32,12 @@ func _process(_delta):
 	
 	if camera_room_position != player_room_pos:
 		camera_room_position = player_room_pos
+		map.find_child("PlayerMarker",true,false).position = camera_room_position * 10
+	
+	#player_marker.position = camera_room_position
+	
 	
 	var previous_position = position
-	
 	#position.x = move_toward(position.x, camera_room_position.x*ROOM_WIDTH, CAMSPEED)
 	#position.y = move_toward(position.y, camera_room_position.y*ROOM_HEIGHT, CAMSPEED)
 
@@ -46,13 +51,8 @@ func _process(_delta):
 		direction = Vector2(direction_x,direction_y)
 		transition_time.start()
 		player.lockout = true
-		
-	if transition_time.is_stopped() == false:
-		pass
-		#player.velocity = -direction*60
-
-		
-
+	
+	
 
 func _on_transition_time_timeout():
 	player.lockout = false

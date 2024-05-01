@@ -10,6 +10,7 @@ size = Vector2(384, 224)
 
 [node name="Room_Manager" type="Area2D"]
 y_sort_enabled = true
+disable_mode = 2
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_4wfly")

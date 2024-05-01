@@ -1,30 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://bdddl6vmb4qnc"]
+[gd_scene load_steps=6 format=3 uid="uid://bdddl6vmb4qnc"]
 
-[ext_resource type="Texture2D" uid="uid://easyj3b2vwye" path="res://Resources/Player/wallet.png" id="1_i5ki3"]
 [ext_resource type="Script" path="res://gui.gd" id="1_xc68u"]
 [ext_resource type="Resource" uid="uid://defhgda6tnv8i" path="res://player_info.tres" id="2_vv0pv"]
+[ext_resource type="Theme" uid="uid://nh2gs2ko17dl" path="res://Themes/main_theme.tres" id="3_ddvwg"]
 [ext_resource type="PackedScene" uid="uid://bhvjw6dlpmxf7" path="res://menu_ui.tscn" id="4_fbrj0"]
 
-[sub_resource type="Animation" id="Animation_fafup"]
-resource_name = "Wallet_Shake"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(352, 192), Vector2(356, 192), Vector2(352, 192), Vector2(348, 192), Vector2(352, 192)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_qrbdb"]
-_data = {
-"Wallet_Shake": SubResource("Animation_fafup")
-}
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2n7hy"]
 
 [node name="GUI" type="Control"]
 process_mode = 3
@@ -48,19 +29,20 @@ offset_bottom = 200.0
 theme_override_constants/separation = 1
 
 [node name="GlobalClock" type="Label" parent="."]
+custom_minimum_size = Vector2(0, 32)
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -49.0
-offset_top = -25.0
-offset_right = 35.0
-offset_bottom = -2.0
-grow_horizontal = 2
-grow_vertical = 0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -72.0
+offset_bottom = 8.0
+grow_horizontal = 0
+theme = ExtResource("3_ddvwg")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxEmpty_2n7hy")
 text = "NULL TIME"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Location" type="Label" parent="."]
 layout_mode = 0
@@ -74,27 +56,6 @@ wait_time = 2.0
 one_shot = true
 autostart = true
 
-[node name="Wallet" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -32.0
-offset_top = -32.0
-grow_horizontal = 0
-grow_vertical = 0
-texture = ExtResource("1_i5ki3")
-
-[node name="WalletTimer" type="Timer" parent="Wallet"]
-one_shot = true
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Wallet"]
-libraries = {
-"": SubResource("AnimationLibrary_qrbdb")
-}
-
 [node name="MenuUI" parent="." instance=ExtResource("4_fbrj0")]
 visible = false
 layout_mode = 1
@@ -102,5 +63,4 @@ offset_right = 0.0
 offset_bottom = 0.0
 
 [connection signal="picked_up_coin" from="." to="." method="_on_picked_up_coin"]
-[connection signal="shake_wallet" from="." to="." method="_on_shake_wallet"]
 [connection signal="update_location" from="." to="." method="_on_update_location"]

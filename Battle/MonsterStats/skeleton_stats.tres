@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="MonsterStats" load_steps=8 format=3 uid="uid://chjxocbkkkc6q"]
+
+[ext_resource type="Animation" uid="uid://lrvclxki0e5r" path="res://Battle/Animations/Skeleton/skeleton_attack.res" id="1_3pvr6"]
+[ext_resource type="Script" path="res://monster_stats.gd" id="1_kfi0i"]
+[ext_resource type="SpriteFrames" uid="uid://fnu2clni30el" path="res://Battle/Animations/Skeleton/skeleton.tres" id="1_qriea"]
+[ext_resource type="Texture2D" uid="uid://d2sjyg1hooe8q" path="res://Resources/Monsters/skeleton_sword_side.png" id="1_v42et"]
+[ext_resource type="Animation" uid="uid://bvrj3x0sqd1lo" path="res://Battle/Animations/Skeleton/skeleton_chase.res" id="2_jba5a"]
+[ext_resource type="Animation" uid="uid://da43je67jv1a1" path="res://Battle/Animations/Skeleton/skeleton_death.res" id="3_mrkyk"]
+[ext_resource type="Animation" uid="uid://b7wxj3t2tbwa7" path="res://Battle/Animations/Skeleton/skeleton_idle.res" id="5_itclu"]
+
+[resource]
+script = ExtResource("1_kfi0i")
+health = 8
+defense = 0
+attack = 2
+additional_sprite = ExtResource("1_v42et")
+monster_sprites = ExtResource("1_qriea")
+idle_animation = ExtResource("5_itclu")
+chase_animation = ExtResource("2_jba5a")
+death_animation = ExtResource("3_mrkyk")
+attack_animation = ExtResource("1_3pvr6")

@@ -4,12 +4,12 @@
 
 [resource]
 script = ExtResource("1_5x7v2")
-position = Vector2(300, 100)
+position = Vector2(0, 0)
 max_health = 50
-current_health = 45
-money = 50
+current_health = 4
+money = 10000
 experience = 0
 attack = 3
 defense = 0
-inventory = Array[int]([1])
+inventory = Array[int]([0])
 capacity = 3

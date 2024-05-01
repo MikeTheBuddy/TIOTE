@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://cc7u31ivs2soj"]
+[gd_scene load_steps=12 format=3 uid="uid://cc7u31ivs2soj"]
 
 [ext_resource type="Script" path="res://Dungeon.gd" id="1_jphk1"]
 [ext_resource type="Texture2D" uid="uid://bw8cm121ehkyd" path="res://Resources/tilemap1.png" id="2_0sr4w"]
 [ext_resource type="PackedScene" uid="uid://d3ow1kb87tseu" path="res://player.tscn" id="3_2m3cp"]
+[ext_resource type="PackedScene" uid="uid://d3jax5x5ocpw6" path="res://transition.tscn" id="3_qqphq"]
 [ext_resource type="Script" path="res://SnapCamera.gd" id="4_a3wpt"]
 [ext_resource type="Resource" uid="uid://defhgda6tnv8i" path="res://player_info.tres" id="4_f7eo8"]
 [ext_resource type="PackedScene" uid="uid://c331qqkmmnew0" path="res://teleport.tscn" id="6_2haaf"]
@@ -1115,7 +1116,17 @@ metadata/_edit_vertical_guides_ = [-5.0]
 [node name="GUILayer" type="CanvasLayer" parent="."]
 
 [node name="GUI" parent="GUILayer" instance=ExtResource("6_p6mp7")]
-z_index = 1
+
+[node name="Transition" parent="GUILayer" instance=ExtResource("3_qqphq")]
+z_index = 3
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="Map" type="Control" parent="GUILayer"]
+z_index = -3
+layout_mode = 3
+anchors_preset = 0
+scale = Vector2(3, 3)
 
 [node name="CameraSnap" type="Camera2D" parent="."]
 z_index = 20
@@ -1146,9 +1157,6 @@ layer_3/tile_data = PackedInt32Array()
 [node name="Player" parent="." instance=ExtResource("3_2m3cp")]
 position = Vector2(38, 58)
 player_info = ExtResource("4_f7eo8")
-
-[node name="MapNode" type="Node2D" parent="Player"]
-position = Vector2(-38, -58)
 
 [node name="Doors" type="Node2D" parent="."]
 y_sort_enabled = true

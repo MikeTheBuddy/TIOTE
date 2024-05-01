@@ -1,13 +1,13 @@
-[gd_scene load_steps=29 format=3 uid="uid://dp752bqrmwkuc"]
+[gd_scene load_steps=27 format=3 uid="uid://dp752bqrmwkuc"]
 
 [ext_resource type="Shader" path="res://Shaders/outline.gdshader" id="1_j4lvs"]
 [ext_resource type="Script" path="res://shop_item.gd" id="1_k81h2"]
 [ext_resource type="Resource" uid="uid://defhgda6tnv8i" path="res://player_info.tres" id="2_d5lj2"]
 [ext_resource type="Texture2D" uid="uid://b4pocmod4wqft" path="res://Resources/Items/health_potion_medium.png" id="2_xxc2p"]
-[ext_resource type="LabelSettings" uid="uid://72i37m3rhkjm" path="res://Fonts/LabelSettings/inventory_item_labelsettings.tres" id="5_fuwho"]
-[ext_resource type="Texture2D" uid="uid://bqsxlqepthk2a" path="res://Themes/UIBackgroundNine.png" id="6_5nr8k"]
+[ext_resource type="Theme" uid="uid://nh2gs2ko17dl" path="res://Themes/main_theme.tres" id="5_sjapi"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cwdq1"]
+resource_local_to_scene = true
 shader = ExtResource("1_j4lvs")
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 shader_parameter/enable_shader = false
@@ -172,58 +172,8 @@ _data = {
 "RESET": SubResource("Animation_hfefg")
 }
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_eaqgd"]
-content_margin_left = 4.0
-content_margin_top = 8.0
-content_margin_right = 4.0
-content_margin_bottom = 8.0
-
-[sub_resource type="Animation" id="Animation_dblxc"]
-resource_name = "health_potion_small_description"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:text")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["This is a small health potion. It restores 5 HP when consumed."]
-}
-
-[sub_resource type="Animation" id="Animation_wo4ru"]
-resource_name = "health_potion_medium_description"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:text")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["This is a medium health potion. It restores 15 HP when consumed."]
-}
-
-[sub_resource type="Animation" id="Animation_gyyjf"]
-resource_name = "health_potion_large_description"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:text")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["This is a large health potion. It restores 25 HP when consumed."]
-}
+[sub_resource type="Animation" id="Animation_dmeua"]
+length = 0.001
 
 [sub_resource type="Animation" id="Animation_hm3n4"]
 resource_name = "capacity_description"
@@ -242,6 +192,53 @@ tracks/0/keys = {
 "]
 }
 
+[sub_resource type="Animation" id="Animation_gyyjf"]
+resource_name = "health_potion_large_description"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["This is a large health potion. It restores 25 HP when consumed."]
+}
+
+[sub_resource type="Animation" id="Animation_wo4ru"]
+resource_name = "health_potion_medium_description"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["This is a medium health potion. It restores 15 HP when consumed."]
+}
+
+[sub_resource type="Animation" id="Animation_dblxc"]
+resource_name = "health_potion_small_description"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["This is a small health potion. It restores 5 HP when consumed."]
+}
+
 [sub_resource type="Animation" id="Animation_nuf7i"]
 resource_name = "money_description"
 length = 0.8
@@ -257,9 +254,6 @@ tracks/0/keys = {
 "update": 1,
 "values": ["Insufficient Money!"]
 }
-
-[sub_resource type="Animation" id="Animation_dmeua"]
-length = 0.001
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_i01cw"]
 _data = {
@@ -308,6 +302,34 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(120, 24)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:pivot_offset")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(100, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ldwkb"]
+resource_name = "close_description_box"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_p2onc"]
@@ -362,7 +384,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.0001),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [Vector2(-60, -40), Vector2(-60, -40)]
+"values": [Vector2(-60, -40), Vector2(-100, -40)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -374,7 +396,19 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Vector2(120, 24)]
+"values": [Vector2(200, 24)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:pivot_offset")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(100, 24)]
 }
 
 [sub_resource type="Animation" id="Animation_qstor"]
@@ -393,22 +427,6 @@ tracks/0/keys = {
 "values": [0.0, 1.0]
 }
 
-[sub_resource type="Animation" id="Animation_ldwkb"]
-resource_name = "close_description_box"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(0, 0)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bldgn"]
 _data = {
 "RESET": SubResource("Animation_iw3sm"),
@@ -419,12 +437,11 @@ _data = {
 }
 
 [node name="ShopItem" type="Area2D"]
+z_index = 1
 collision_layer = 0
 collision_mask = 64
 script = ExtResource("1_k81h2")
-restock = true
 player_info = ExtResource("2_d5lj2")
-item_selling = 1
 shop_type = 1
 
 [node name="Item" type="Sprite2D" parent="."]
@@ -457,34 +474,17 @@ anchor_bottom = 1.0
 offset_left = -60.0
 offset_top = -40.0
 offset_right = 60.0
-offset_bottom = -16.0
+offset_bottom = 32.0
 grow_horizontal = 2
 grow_vertical = 0
 scale = Vector2(1e-05, 1e-05)
-pivot_offset = Vector2(60, 20)
-theme_override_styles/normal = SubResource("StyleBoxEmpty_eaqgd")
-text = "Inventory Full!
-"
-label_settings = ExtResource("5_fuwho")
+pivot_offset = Vector2(100, 0)
+theme = ExtResource("5_sjapi")
+theme_override_font_sizes/font_size = 8
+text = "This is a large health potion. It restores 25 HP when consumed."
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
-visible_characters = 6
-visible_ratio = 0.416667
-
-[node name="NinePatchRect" type="NinePatchRect" parent="ItemDescription"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("6_5nr8k")
-patch_margin_left = 2
-patch_margin_top = 2
-patch_margin_right = 2
-patch_margin_bottom = 2
 
 [node name="LabelAnimator" type="AnimationPlayer" parent="ItemDescription"]
 libraries = {

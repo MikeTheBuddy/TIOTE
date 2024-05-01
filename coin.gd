@@ -57,7 +57,6 @@ func _process(delta):
 
 
 func _on_area_entered(_area):
-	
 	animation_player.play("collected")
 	#collision_shape_2d.set_deferred("disabled",true)
 	

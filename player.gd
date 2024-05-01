@@ -7,7 +7,6 @@ const ACCELERATION = 1000
 const FRICTION = 1200
 const MAX_SPEED = 60.0
 
-@onready var animated_sprite_2d = $AnimatedSprite2D
 
 var last_direction = Vector2i()
 
@@ -43,88 +42,18 @@ var money : int
 var max_health : int
 var current_health : int
 
+var immunity = false
+
 func _ready():
 	position = player_info.position
 	#animated_sprite_2d.play("Idle_Down")
 	money = player_info.money
 	max_health = player_info.max_health
 	current_health = player_info.current_health
-	
-# updates the animation to the correct one based on some stuff
-"""func update_animation():
-	if velocity == Vector2.ZERO:
-		if last_direction.x != 0:
-			
-			if last_direction.x == 1:
-				animated_sprite_2d.flip_h = false
-			elif last_direction.x == -1:
-				collision_shape_2d.position.x = -9
-				animated_sprite_2d.flip_h = true
-			animated_sprite_2d.play("Idle_Forward")
-		
-		if last_direction.y != 0:
-			if last_direction.y == 1:
-				animated_sprite_2d.play("Idle_Down")
-			elif last_direction.y == -1:
-				animated_sprite_2d.play("Idle_Up")
-	else:
-		if abs(velocity.x) >= abs(velocity.y):
-			if velocity.x > 0:
-				animated_sprite_2d.flip_h = false
-			elif velocity.x < 0:
-				animated_sprite_2d.flip_h = true
-			animated_sprite_2d.play("Walk_Forward")
-		else:
-			if velocity.y > 0:
-				animated_sprite_2d.play("Walk_Down")
-			elif velocity.y < 0:
-				animated_sprite_2d.play("Walk_Up")
 
 func _process(_delta):
-	# Add the gravity.
-	#if not is_on_floor():
-	#		velocity.y += gravity * delta
-	#print(lockout)
-	# update money total
-	player_info.money = money
-	
-	label.text = "Money: " + str(player_info.money)
-	
-	if lockout == false and Gamestates.in_battle == false:
-		var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-		
-		if direction != Vector2.ZERO and attack_cooldown.is_stopped():
-			last_direction = direction
-		
-		if Input.is_action_just_pressed("Attack"):
-			attack_cooldown.start()
-			velocity = Vector2(0,0)
-			match last_direction:
-				Vector2(1,0):
-					animated_sprite_2d.play("Attack_Foward")
-					collision_shape_2d.position.x = 9
-					collision_shape_2d.disabled = false
-					animated_sprite_2d.flip_h = false
-				Vector2(-1,0):
-					animated_sprite_2d.play("Attack_Foward")
-					collision_shape_2d.position.x = -9
-					collision_shape_2d.disabled = false
-					animated_sprite_2d.flip_h = true
-					
-		elif attack_cooldown.is_stopped():
-			collision_shape_2d.disabled = true
-			update_animation()
-			velocity = direction * SPEED
-
-	#THIS IS PURELY FOR DEBUGGING DUNGEONS
-	if Input.is_action_just_pressed("DebugButton"):
-		get_node("/root/Dungeon/").level += 1
-		get_node("/root/Dungeon/").generate_dungeon.emit()
-
-	move_and_slide()"""
-
-func _process(_delta):
-	animate()
+	if Gamestates.in_battle == false:
+		animate()
 	#player_info.money = money
 	#label.text = "Health: " + str(player_info.current_health)
 	#label.text = "Money: " + str(player_info.money)
@@ -132,7 +61,7 @@ func _process(_delta):
 
 func _physics_process(delta):
 	#print(velocity)
-	if Gamestates.in_battle == false and swing_lockout == false:
+	if Gamestates.in_battle == false and swing_lockout == false and Gamestates.in_transition == false:
 		move(delta)
 
 func move(delta):
@@ -179,6 +108,10 @@ func animate() -> void:
 	animation_tree.set(blend_pos_paths[SWING], blend_position)
 
 
+func immunity_time(time):
+	immunity = true
+	await get_tree().create_timer(time).timeout
+	immunity = false
 
 
 func _on_attack_cooldown_timeout():
